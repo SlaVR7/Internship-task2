@@ -1,14 +1,18 @@
-import { Outlet } from "react-router-dom";
-import { Header, Footer } from "./components";
+import { Outlet } from 'react-router-dom';
+import { Footer, Navbar } from './components';
+import { Layout } from 'antd';
+import { observer } from 'mobx-react-lite';
 
-export function App() {
+function AppComponent() {
   return (
-    <div className="container">
-      <Header />
-      <main>
+    <Layout>
+      <Navbar />
+      <Layout.Content>
         <Outlet />
-      </main>
+      </Layout.Content>
       <Footer />
-    </div>
+    </Layout>
   );
 }
+
+export const App = observer(AppComponent);
