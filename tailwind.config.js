@@ -65,8 +65,8 @@ module.exports = withMT({
         normal: '10px'
       },
       backgroundImage: {
-        'new-collection': "url('./public/images/candle_masked.png')",
-        'sale-section': "url('./public/images/massage_soap.png')"
+        'new-collection': "url('/images/candle_masked.png')",
+        'sale-section': "url('/images/massage_soap.png')"
       },
       keyframes: {
         slide: {

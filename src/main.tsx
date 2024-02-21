@@ -32,6 +32,8 @@ const router = createBrowserRouter(
           <Route path={'/cart'} element={<CartPage />} />
           <Route path={'/about'} element={<AboutPage />} />
           <Route path={'/our-products'} element={<ProductsPage />} />
+          <Route path={'/our-products/:category'} element={<ProductsPage />} />
+          <Route path={'/our-products/:category/:subcategory'} element={<ProductsPage />} />
         </>
       ) : (
         <Route path={'/account'} element={<AccountPage />} />

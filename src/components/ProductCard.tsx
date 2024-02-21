@@ -6,11 +6,11 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import Title from 'antd/es/typography/Title';
 import Paragraph from 'antd/es/typography/Paragraph';
+import { ArrayIndex } from '../lib/enums.ts';
 
 function ProductCardComponent( {productId}: {productId: string}) {
   const navigate = useNavigate();
   const storeProduct = store.products.find(storeProduct=> storeProduct.id === productId);
-  console.log(typeof store.products[2].id, productId);
 
   function handleClick(event: React.MouseEvent) {
     event.stopPropagation();
@@ -29,7 +29,7 @@ function ProductCardComponent( {productId}: {productId: string}) {
       <Button onClick={handleClick}>{storeProduct?.isInCart ? 'Already in Cart' : 'Add to Cart'}</Button>
       <Flex vertical={true} justify={'justify-between'} className='h-[130px] bg-additionalColor dark:bg-graySColor text-left p-4'>
         <Title level={4}  className='text-center font-semibold text-grayLColor dark:text-secondaryColor'>{storeProduct?.name}</Title>
-        <Title style={{margin: 0}} level={5}>Natural {storeProduct?.category}</Title>
+        <Title style={{margin: 0}} level={5}>Natural {storeProduct?.categories[ArrayIndex.FirstElement]}</Title>
         <Flex justify={'space-between'} align={'end'}>
           {storeProduct?.salePrice ? (
             <>
