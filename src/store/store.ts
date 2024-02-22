@@ -1,4 +1,5 @@
 import { types } from 'mobx-state-tree';
+import { UserData } from '../lib/interfaces.ts';
 
 const Product = types.model({
   id: types.identifier,
@@ -17,10 +18,15 @@ const Product = types.model({
   },
 }));
 
-const User = types.model({
+const User = types.model('User',{
   id: types.identifier,
   username: types.string,
   email: types.string,
+  address: types.string,
+  agreement: types.boolean,
+  gender: types.string,
+  password: types.string,
+  phone: types.string,
 });
 
 const CartItem = types.model({
@@ -31,7 +37,6 @@ const CartItem = types.model({
 const ShoppingCart = types.model({
   cartItems: types.array(CartItem),
 }).actions(self => ({
-  // Добавление товара в корзину
   addItem(product, quantity) {
     const existingItem = self.cartItems.find(item => item.product === product);
 
@@ -43,14 +48,28 @@ const ShoppingCart = types.model({
   },
 }));
 
+const AuthorizedUserId = types.model({
+  authorizedUserId: types.string,
+}).actions(self => ({
+  setAuthorizedUser(user: UserData | null) {
+    self.authorizedUserId = user ? user.id : '';
+  },
+}));
+
+export const authorizedUser = AuthorizedUserId.create({
+  authorizedUserId: '',
+});
+
 const OnlineStore = types.model({
   products: types.array(Product),
   users: types.array(User),
+  authorizedUserId: AuthorizedUserId,
   cart: ShoppingCart,
 }).actions(self => ({
-  // Добавление нового пользователя
-  addUser(user) {
-    self.users.push(user);
+  addUser(user: UserData) {
+    const userId = (self.users.length + 1).toString();
+    const userWithId = {...user, id: userId};
+    self.users.push(userWithId);
   },
 }));
 
@@ -232,6 +251,9 @@ export const store = OnlineStore.create({
       type: 'Set of products',
     },
   ],
+  authorizedUserId: {
+    authorizedUserId: '',
+  },
   users: [],
   cart: { cartItems: [] },
 });

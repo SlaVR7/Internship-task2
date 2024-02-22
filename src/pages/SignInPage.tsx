@@ -1,7 +1,81 @@
-import { FC } from 'react';
+import React from 'react';
+import { Button, Checkbox, Form, Input, notification } from 'antd';
+import { UserData } from '../lib/interfaces.ts';
+import { authorizedUser, store } from '../store/store.ts';
+import { useNavigate } from 'react-router-dom';
+import { FieldType } from '../lib/types.ts';
 
-const SignInPage: FC = () => {
-  return <div>Sign In page</div>;
-};
+const SignInPage: React.FC = () => {
+  const navigate = useNavigate();
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotificationWithIcon = () => {
+    api.error({
+      message: 'Failed',
+      description:
+        'You have entered an incorrect username or password. Please, try again.',
+    });
+  };
+
+  const successfulSignIn = (user: UserData) => {
+    authorizedUser.setAuthorizedUser(user);
+    navigate('/our-products');
+  }
+
+  const onFinish = (values: UserData) => {
+    const users = store.users;
+    const authorizedUser = users.find(user => {
+      return user.username === values.username && user.password === values.password;
+    })
+    authorizedUser ? successfulSignIn(authorizedUser) : openNotificationWithIcon();
+  };
+
+
+  return (
+  <>
+    {contextHolder}
+    <h3 className={'text-accentColor dark:text-primaryColor text-h3 font-bold pb-bigY'}>Sign In form:</h3>
+    <Form
+      name="basic"
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 16 }}
+      style={{ maxWidth: 600 }}
+      initialValues={{ remember: true }}
+      onFinish={onFinish}
+      autoComplete="off"
+    >
+      <Form.Item<FieldType>
+        label="Username"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item<FieldType>
+        label="Password"
+        name="password"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item<FieldType>
+        name="remember"
+        valuePropName="checked"
+        wrapperCol={{ offset: 8, span: 16 }}
+      >
+        <Checkbox>Remember me</Checkbox>
+      </Form.Item>
+
+      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+  </>
+
+)};
 
 export default SignInPage;

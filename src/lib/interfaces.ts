@@ -51,3 +51,14 @@ export interface IProductsParameters {
 export interface IProductsSetter {
   setProductsParameters: React.Dispatch<React.SetStateAction<IProductsParameters>>;
 }
+
+export interface UserData {
+  id: string;
+  username: string;
+  address: string;
+  agreement: boolean;
+  email: string;
+  gender: string;
+  password: string;
+  phone: string;
+}

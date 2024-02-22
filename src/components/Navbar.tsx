@@ -1,11 +1,22 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Layout, Space } from 'antd';
 import { Logo } from './index.ts';
 import { Logout } from './icons';
 import { ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { authorizedUser } from '../store/store.ts';
+import { onSnapshot } from 'mobx-state-tree';
 
   const Navbar: FC = () => {
+    const [isUserAuthorized, setIsUserAuthorized] = useState(false);
+    function logout() {
+      authorizedUser.setAuthorizedUser(null);
+    }
+
+    onSnapshot(authorizedUser, (snapshot) => {
+      setIsUserAuthorized(!!snapshot.authorizedUserId);
+    })
+
   return (
     <Layout.Header style={{ display: 'flex', justifyContent: "space-between", background: 'white' }}>
       <Link to="/">
@@ -17,10 +28,18 @@ import { Link } from 'react-router-dom';
         <Link to="/about">About</Link>
       </Space>
       <Space>
-        <Link to="/">theme</Link>
+        {isUserAuthorized ?
+        <>
+          <Link to="/account">{<UserOutlined />}</Link>
+          <Link to="/" onClick={logout}>Logout <Logout /></Link>
+        </>
+          :
+          <>
+            <Link to="/sign-up">Sign Up</Link>
+            <Link to="/sign-in">Sign In</Link>
+          </>
+        }
         <Link to="/our-products">{<ShoppingCartOutlined />}</Link>
-        <Link to="/about">{<UserOutlined />}</Link>
-        <Link to="/about">{<Logout />}</Link>
       </Space>
     </Layout.Header>
 
