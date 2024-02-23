@@ -19,7 +19,7 @@ export function CartListItem({productId}: CartItem) {
         <div className='border-2 border-accentColor dark:border-basicColor rounded-normal overflow-hidden flex justify-center items-center w-[100px] h-[100px] shrink-0 mr-4'>
           <img className='w-full h-full object-cover' src={cartProduct?.imageSrc[0]} alt=''></img>
         </div>
-        <NavLink to={`/product/${cartProduct?.name}`}>
+        <NavLink to={`/${cartProduct?.link}` || '/'}>
           <h3 className='text-accentColor dark:text-basicColor font-bold mr-2 text-center md:text-start hover:text-accentDarkColor dark:hover:text-accentDarkColor'>
             {cartProduct?.name}
           </h3>

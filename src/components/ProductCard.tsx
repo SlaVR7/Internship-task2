@@ -19,7 +19,7 @@ function ProductCardComponent( {productId}: {productId: string}) {
 
   return (
     <Flex vertical={true}
-      onClick={() => storeProduct && navigate(storeProduct.link)}
+      onClick={() => storeProduct && navigate(`/${storeProduct.link}`)}
       className={classNames(
         'cursor-pointer relative transition w-[280px]',
         'hover:scale-[1.02] hover:drop-shadow-lg active:scale-100 active:drop-shadow-none'
