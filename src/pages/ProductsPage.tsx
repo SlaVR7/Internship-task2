@@ -27,10 +27,8 @@ function ProductsPage() {
 
   const observer = useRef(new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) {
-      console.log('gettingParams', currentGettingParams.current);
       const visibleProductsId: string[] = getProducts(currentGettingParams.current);
       const separatedProductsId: string[] = visibleProductsId.slice((page.current - 1) * 9, page.current * 9);
-      console.log('visibleSepar', separatedProductsId);
       setVisibleProductsId(prevState => [...prevState, ...separatedProductsId]);
       page.current++
     }

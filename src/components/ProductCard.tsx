@@ -14,7 +14,7 @@ function ProductCardComponent( {productId}: {productId: string}) {
 
   function handleClick(event: React.MouseEvent) {
     event.stopPropagation();
-    storeProduct && storeProduct.toggleIsInCart();
+    storeProduct?.quantityInCart ? storeProduct.removeFromCart() : storeProduct?.addToCart(1);
   }
 
   return (
@@ -26,7 +26,7 @@ function ProductCardComponent( {productId}: {productId: string}) {
       )}
     >
       <Image preview={false} height={'300px'} width={'280px'} className='object-cover' src={storeProduct?.imageSrc[0]} alt='product image' />
-      <Button onClick={handleClick}>{storeProduct?.isInCart ? 'Already in Cart' : 'Add to Cart'}</Button>
+      <Button onClick={handleClick}>{storeProduct?.quantityInCart ? 'Already in Cart' : 'Add to Cart'}</Button>
       <Flex vertical={true} justify={'justify-between'} className='h-[130px] bg-additionalColor dark:bg-graySColor text-left p-4'>
         <Title level={4}  className='text-center font-semibold text-grayLColor dark:text-secondaryColor'>{storeProduct?.name}</Title>
         <Title style={{margin: 0}} level={5}>Natural {storeProduct?.categories[ArrayIndex.FirstElement]}</Title>

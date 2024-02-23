@@ -9,13 +9,16 @@ const Product = types.model({
   description: types.string,
   imageSrc: types.array(types.string),
   categories: types.array(types.string),
-  isInCart: types.boolean,
+  quantityInCart: types.number,
   link: types.string,
   type: types.enumeration('ProductType', ['All products', 'Set of products', 'Single products']),
 }).actions(self => ({
-  toggleIsInCart() {
-    self.isInCart = !self.isInCart;
+  addToCart(quantity: number) {
+    self.quantityInCart += quantity;
   },
+  removeFromCart() {
+    self.quantityInCart = 0;
+  }
 }));
 
 const User = types.model('User',{
@@ -29,24 +32,12 @@ const User = types.model('User',{
   phone: types.string,
 });
 
-const CartItem = types.model({
-  product: types.reference(Product),
-  quantity: types.number,
-});
-
-const ShoppingCart = types.model({
-  cartItems: types.array(CartItem),
-}).actions(self => ({
-  addItem(product, quantity) {
-    const existingItem = self.cartItems.find(item => item.product === product);
-
-    if (existingItem) {
-      existingItem.quantity += quantity;
-    } else {
-      self.cartItems.push({ product, quantity });
-    }
-  },
-}));
+const Order = types.model('Order', {
+  orderId: types.identifier,
+  productsData: types.maybe(types.array(types.string)),
+  date: types.maybe(types.Date),
+  totalPrice: types.string,
+})
 
 const AuthorizedUserId = types.model({
   authorizedUserId: types.string,
@@ -62,15 +53,23 @@ export const authorizedUser = AuthorizedUserId.create({
 
 const OnlineStore = types.model({
   products: types.array(Product),
+  orders: types.array(Order),
   users: types.array(User),
   authorizedUserId: AuthorizedUserId,
-  cart: ShoppingCart,
 }).actions(self => ({
   addUser(user: UserData) {
     const userId = (self.users.length + 1).toString();
     const userWithId = {...user, id: userId};
     self.users.push(userWithId);
   },
+  addOrder(productsData: string[], date: Date, totalPrice: string) {
+    const orderId = (self.orders.length + 1).toString();
+    self.orders.push({orderId, productsData, date, totalPrice})
+  },
+  removeOrder(id: string) {
+    const targetOrder = self.orders.find(order => order.orderId === id);
+    targetOrder?.orderId && self.orders.splice(self.orders.indexOf(targetOrder), 1);
+}
 }));
 
 export const store = OnlineStore.create({
@@ -83,7 +82,7 @@ export const store = OnlineStore.create({
       description: 'The Witch candle for rituals is a mysterious and symbolic work created taking into account ancient traditions and magical aspects. It serves not only as a source of light, but also as a powerful tool for rituals, meditations and magical practices.',
       categories: ['candles', 'decor', 'decor/candles'],
       imageSrc: ['/images/products/candles/Candle-Witch-for-rituals-1.jpg', '/images/products/candles/Candle-Witch-for-rituals-2.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/witch',
       type: 'Single products',
     },
@@ -94,7 +93,7 @@ export const store = OnlineStore.create({
       description: 'The Pumpkin candle is a cozy and atmospheric work created with the aim of adding the spirit of autumn comfort and conviviality to your home. It brings a feeling of warmth, light and joy, and is also associated with the Halloween holiday and everything connected with this magical time.',
       categories: ['candles', 'decor', 'decor/candles'],
       imageSrc: ['/images/products/candles/Pumpkin-Candle-1.jpg', '/images/products/candles/Pumpkin-Candle-2.jpg', '/images/products/candles/Pumpkin-Candle-3.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/pumpkin',
       type: 'Single products',
     },
@@ -106,7 +105,7 @@ export const store = OnlineStore.create({
       description: 'Fragrant and seductive soap, as if created from the most delicate and luxurious chocolate. Its warm brown palette reminds of a dark glaze enveloping your senses. At the first touch, you will feel a gentle, almost slightly melts on the skin, like chocolate in your hands. An exquisite fragrance will rise in the air, as if you are going to enjoy a cup of hot cocoa, awakening sensual sensations in you.',
       categories: ['soap', 'self-care', 'self-care/soap'],
       imageSrc: ['/images/products/soap/Chocolate-1.jpg', '/images/products/soap/Chocolate-2.jpg', '/images/products/soap/Chocolate-3.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/chocolate',
       type: 'Set of products',
     },
@@ -118,7 +117,7 @@ export const store = OnlineStore.create({
       description: 'The Witch candle for rituals is a mysterious and symbolic work created taking into account ancient traditions and magical aspects. It serves not only as a source of light, but also as a powerful tool for rituals, meditations and magical practices.',
       categories: ['candles', 'decor', 'decor/candles'],
       imageSrc: ['/images/products/candles/Candle-Witch-for-rituals-1.jpg', '/images/products/candles/Candle-Witch-for-rituals-2.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/witch',
       type: 'Single products',
     },
@@ -129,7 +128,7 @@ export const store = OnlineStore.create({
       description: 'The Pumpkin candle is a cozy and atmospheric work created with the aim of adding the spirit of autumn comfort and conviviality to your home. It brings a feeling of warmth, light and joy, and is also associated with the Halloween holiday and everything connected with this magical time.',
       categories: ['candles', 'decor', 'decor/candles'],
       imageSrc: ['/images/products/candles/Pumpkin-Candle-1.jpg', '/images/products/candles/Pumpkin-Candle-2.jpg', '/images/products/candles/Pumpkin-Candle-3.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/pumpkin',
       type: 'Single products',
     },
@@ -141,7 +140,7 @@ export const store = OnlineStore.create({
       description: 'Fragrant and seductive soap, as if created from the most delicate and luxurious chocolate. Its warm brown palette reminds of a dark glaze enveloping your senses. At the first touch, you will feel a gentle, almost slightly melts on the skin, like chocolate in your hands. An exquisite fragrance will rise in the air, as if you are going to enjoy a cup of hot cocoa, awakening sensual sensations in you.',
       categories: ['soap', 'self-care', 'self-care/soap'],
       imageSrc: ['/images/products/soap/Chocolate-1.jpg', '/images/products/soap/Chocolate-2.jpg', '/images/products/soap/Chocolate-3.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/chocolate',
       type: 'Set of products',
     },
@@ -153,7 +152,7 @@ export const store = OnlineStore.create({
       description: 'The Witch candle for rituals is a mysterious and symbolic work created taking into account ancient traditions and magical aspects. It serves not only as a source of light, but also as a powerful tool for rituals, meditations and magical practices.',
       categories: ['candles', 'decor', 'decor/candles'],
       imageSrc: ['/images/products/candles/Candle-Witch-for-rituals-1.jpg', '/images/products/candles/Candle-Witch-for-rituals-2.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/witch',
       type: 'Single products',
     },
@@ -164,7 +163,7 @@ export const store = OnlineStore.create({
       description: 'The Pumpkin candle is a cozy and atmospheric work created with the aim of adding the spirit of autumn comfort and conviviality to your home. It brings a feeling of warmth, light and joy, and is also associated with the Halloween holiday and everything connected with this magical time.',
       categories: ['candles', 'decor', 'decor/candles'],
       imageSrc: ['/images/products/candles/Pumpkin-Candle-1.jpg', '/images/products/candles/Pumpkin-Candle-2.jpg', '/images/products/candles/Pumpkin-Candle-3.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/pumpkin',
       type: 'Single products',
     },
@@ -176,7 +175,7 @@ export const store = OnlineStore.create({
       description: 'Fragrant and seductive soap, as if created from the most delicate and luxurious chocolate. Its warm brown palette reminds of a dark glaze enveloping your senses. At the first touch, you will feel a gentle, almost slightly melts on the skin, like chocolate in your hands. An exquisite fragrance will rise in the air, as if you are going to enjoy a cup of hot cocoa, awakening sensual sensations in you.',
       categories: ['soap', 'self-care', 'self-care/soap'],
       imageSrc: ['/images/products/soap/Chocolate-1.jpg', '/images/products/soap/Chocolate-2.jpg', '/images/products/soap/Chocolate-3.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/chocolate',
       type: 'Set of products',
     },
@@ -188,7 +187,7 @@ export const store = OnlineStore.create({
       description: 'The Witch candle for rituals is a mysterious and symbolic work created taking into account ancient traditions and magical aspects. It serves not only as a source of light, but also as a powerful tool for rituals, meditations and magical practices.',
       categories: ['candles', 'decor', 'decor/candles'],
       imageSrc: ['/images/products/candles/Candle-Witch-for-rituals-1.jpg', '/images/products/candles/Candle-Witch-for-rituals-2.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/witch',
       type: 'Single products',
     },
@@ -199,7 +198,7 @@ export const store = OnlineStore.create({
       description: 'The Pumpkin candle is a cozy and atmospheric work created with the aim of adding the spirit of autumn comfort and conviviality to your home. It brings a feeling of warmth, light and joy, and is also associated with the Halloween holiday and everything connected with this magical time.',
       categories: ['candles', 'decor', 'decor/candles'],
       imageSrc: ['/images/products/candles/Pumpkin-Candle-1.jpg', '/images/products/candles/Pumpkin-Candle-2.jpg', '/images/products/candles/Pumpkin-Candle-3.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/pumpkin',
       type: 'Single products',
     },
@@ -211,7 +210,7 @@ export const store = OnlineStore.create({
       description: 'Fragrant and seductive soap, as if created from the most delicate and luxurious chocolate. Its warm brown palette reminds of a dark glaze enveloping your senses. At the first touch, you will feel a gentle, almost slightly melts on the skin, like chocolate in your hands. An exquisite fragrance will rise in the air, as if you are going to enjoy a cup of hot cocoa, awakening sensual sensations in you.',
       categories: ['soap', 'self-care', 'self-care/soap'],
       imageSrc: ['/images/products/soap/Chocolate-1.jpg', '/images/products/soap/Chocolate-2.jpg', '/images/products/soap/Chocolate-3.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/chocolate',
       type: 'Set of products',
     },
@@ -223,7 +222,7 @@ export const store = OnlineStore.create({
       description: 'The Witch candle for rituals is a mysterious and symbolic work created taking into account ancient traditions and magical aspects. It serves not only as a source of light, but also as a powerful tool for rituals, meditations and magical practices.',
       categories: ['candles', 'decor', 'decor/candles'],
       imageSrc: ['/images/products/candles/Candle-Witch-for-rituals-1.jpg', '/images/products/candles/Candle-Witch-for-rituals-2.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/witch',
       type: 'Single products',
     },
@@ -234,7 +233,7 @@ export const store = OnlineStore.create({
       description: 'The Pumpkin candle is a cozy and atmospheric work created with the aim of adding the spirit of autumn comfort and conviviality to your home. It brings a feeling of warmth, light and joy, and is also associated with the Halloween holiday and everything connected with this magical time.',
       categories: ['candles', 'decor', 'decor/candles'],
       imageSrc: ['/images/products/candles/Pumpkin-Candle-1.jpg', '/images/products/candles/Pumpkin-Candle-2.jpg', '/images/products/candles/Pumpkin-Candle-3.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/pumpkin',
       type: 'Single products',
     },
@@ -246,7 +245,7 @@ export const store = OnlineStore.create({
       description: 'Fragrant and seductive soap, as if created from the most delicate and luxurious chocolate. Its warm brown palette reminds of a dark glaze enveloping your senses. At the first touch, you will feel a gentle, almost slightly melts on the skin, like chocolate in your hands. An exquisite fragrance will rise in the air, as if you are going to enjoy a cup of hot cocoa, awakening sensual sensations in you.',
       categories: ['soap', 'self-care', 'self-care/soap'],
       imageSrc: ['/images/products/soap/Chocolate-1.jpg', '/images/products/soap/Chocolate-2.jpg', '/images/products/soap/Chocolate-3.jpg'],
-      isInCart: false,
+      quantityInCart: 0,
       link: 'product/chocolate',
       type: 'Set of products',
     },
@@ -255,5 +254,5 @@ export const store = OnlineStore.create({
     authorizedUserId: '',
   },
   users: [],
-  cart: { cartItems: [] },
+  orders: [],
 });

@@ -21,7 +21,7 @@ export interface ProductCardProps {
   imageSrc: string[];
   price: number;
   salePrice?: number;
-  isInCart: boolean;
+  quantityInCart: number;
   link: string;
   type: 'All products' | 'Set of products' | 'Single products';
 }
@@ -61,4 +61,15 @@ export interface UserData {
   gender: string;
   password: string;
   phone: string;
+}
+
+export interface CartItem {
+  productId: string;
+}
+
+export interface IOrder {
+  orderId: string;
+  productsData?: string[];
+  date?: Date;
+  totalPrice: string;
 }

@@ -24,9 +24,12 @@ const SignInPage: React.FC = () => {
 
   const onFinish = (values: UserData) => {
     const users = store.users;
+    console.log('users', users);
     const authorizedUser = users.find(user => {
+      console.log('AAuZZ', user, values);
       return user.username === values.username && user.password === values.password;
     })
+    console.log('auth', authorizedUser);
     authorizedUser ? successfulSignIn(authorizedUser) : openNotificationWithIcon();
   };
 

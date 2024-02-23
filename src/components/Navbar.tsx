@@ -18,7 +18,7 @@ import { onSnapshot } from 'mobx-state-tree';
     })
 
   return (
-    <Layout.Header style={{ display: 'flex', justifyContent: "space-between", background: 'white' }}>
+    <Layout.Header onClick={() => console.log(authorizedUser.authorizedUserId)} style={{ display: 'flex', justifyContent: "space-between", background: 'white' }}>
       <Link to="/">
         <Logo />
       </Link>
@@ -39,7 +39,7 @@ import { onSnapshot } from 'mobx-state-tree';
             <Link to="/sign-in">Sign In</Link>
           </>
         }
-        <Link to="/our-products">{<ShoppingCartOutlined />}</Link>
+        <Link to="/cart">{<ShoppingCartOutlined />}</Link>
       </Space>
     </Layout.Header>
 
