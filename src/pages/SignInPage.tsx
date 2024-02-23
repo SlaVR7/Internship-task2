@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input, notification } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
 import { UserData } from '../lib/interfaces.ts';
 import { authorizedUser, store } from '../store/store.ts';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FieldType } from '../lib/types.ts';
+import Title from 'antd/es/typography/Title';
 
 const SignInPage: React.FC = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const SignInPage: React.FC = () => {
 
   const onFinish = (values: UserData) => {
     const users = store.users;
-    console.log('users', users);
+    console.log('users', users  );
     const authorizedUser = users.find(user => {
       console.log('AAuZZ', user, values);
       return user.username === values.username && user.password === values.password;
@@ -63,18 +64,16 @@ const SignInPage: React.FC = () => {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item<FieldType>
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{ offset: 8, span: 16 }}
-      >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
-          Submit
+          Sign in
         </Button>
+      </Form.Item>
+      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Title level={2}>Don't have an account yet?</Title>
+        <Link to={'/sign-up'} type="primary">
+          <Button>Create an account</Button>
+        </Link>
       </Form.Item>
     </Form>
   </>

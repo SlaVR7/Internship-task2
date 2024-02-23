@@ -61,10 +61,12 @@ export interface UserData {
   gender: string;
   password: string;
   phone: string;
+  changeUserData: (arg0: UserData) => void;
 }
 
 export interface CartItem {
   productId: string;
+  readOnly: boolean;
 }
 
 export interface IOrder {
@@ -72,4 +74,14 @@ export interface IOrder {
   productsData?: string[];
   date?: Date;
   totalPrice: string;
+}
+
+export interface ICartList {
+  isPromoCodeActive: boolean;
+  isOrderPage: boolean;
+}
+
+export interface IUserDataForm {
+  onFinish: (arg0: UserData) => void;
+  userData?: UserData;
 }

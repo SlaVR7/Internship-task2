@@ -6,6 +6,8 @@ import ProductsPage from './ProductsPage.tsx';
 import SignInPage from './SignInPage.tsx';
 import SignUpPage from './SignUpPage.tsx';
 import NotFoundPage from './NotFoundPage.tsx';
+import OrderPage from './OrderPage.tsx';
+import DetailedProductPage from './DetailedProductPage.tsx';
 
 export {
   AboutPage,
@@ -16,4 +18,6 @@ export {
   ProductsPage,
   SignUpPage,
   NotFoundPage,
+  OrderPage,
+  DetailedProductPage
 };

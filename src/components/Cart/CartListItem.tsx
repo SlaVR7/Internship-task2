@@ -3,8 +3,9 @@ import { NavLink } from 'react-router-dom';
 import { store } from '../../store/store.ts';
 import { DeleteOutlined } from '@ant-design/icons';
 import { CartItem } from '../../lib/interfaces.ts';
+import { Flex } from 'antd';
 
-export function CartListItem({productId}: CartItem) {
+export function CartListItem({productId, readOnly}: CartItem) {
   const cartProduct = store.products.find(product => product.id === productId);
   const [quantityInCart, setQuantityInCart] = useState(cartProduct?.quantityInCart);
 
@@ -28,48 +29,51 @@ export function CartListItem({productId}: CartItem) {
           )}
         </NavLink>
       </div>
-      <div className='flex items-center flex-wrap'>
+      <Flex align={'center'} vertical={readOnly} wrap={'wrap'}>
         <div>
           {cartProduct?.salePrice ? (
             <>
               <p className='line-through text-grayMColor dark:accent-accentColor mr-4'>
-                {cartProduct.price}
+                {readOnly && cartProduct.salePrice ? `Price per 1: ${cartProduct.price}` : cartProduct.price} $
               </p>
-              <p className='mr-4'>{cartProduct.salePrice}</p>
+              <p className='mr-4'>
+                {readOnly ? `Price per 1: ${cartProduct.salePrice}` : cartProduct.salePrice} $
+              </p>
             </>
           ) : (
-            <p className='mr-4'>{cartProduct?.price}</p>
+            <p className='mr-4'>{readOnly ? `Price per 1: ${cartProduct?.price}` : cartProduct?.price} $</p>
           )}
         </div>
         <div className='flex mr-4'>
-          <button
+          {!readOnly && <button
             disabled={cartProduct?.quantityInCart === 1}
             onClick={() => handleAddToCart(-1)}
-            className='cursor-pointer flex justify-center items-center w-[20px] bg-graySColor hover:bg-grayMColor transition'
+            className="cursor-pointer flex justify-center items-center w-[20px] bg-graySColor hover:bg-grayMColor transition"
           >
             -
-          </button>
-          <p>{quantityInCart}</p>
+          </button>}
+          <p>{readOnly ? `Quantity: ${quantityInCart} peaces` :  quantityInCart}</p>
 
-          <button
+          {!readOnly && <button
             onClick={() => handleAddToCart(1)}
-            className='cursor-pointer flex justify-center items-center w-[20px] bg-graySColor hover:bg-grayMColor transition'
+            className="cursor-pointer flex justify-center items-center w-[20px] bg-graySColor hover:bg-grayMColor transition"
           >
             +
-          </button>
+          </button>}
         </div>
         <p className='font-bold mr-2'>
+          {readOnly && 'Total price: '}
           {cartProduct?.salePrice ? (
             cartProduct?.salePrice && cartProduct.salePrice * cartProduct.quantityInCart
           ) : (
             cartProduct?.price && cartProduct.price * cartProduct.quantityInCart
-          )}
+          )} $
         </p>
 
-        <button onClick={() => cartProduct?.removeFromCart()}>
+        {!readOnly && <button onClick={() => cartProduct?.removeFromCart()}>
           <DeleteOutlined />
-        </button>
-      </div>
+        </button>}
+      </Flex>
     </div>
   );
 }

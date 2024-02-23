@@ -3,9 +3,11 @@ import Title from 'antd/es/typography/Title';
 import { authorizedUser, store } from '../store/store.ts';
 import { IOrder, UserData } from '../lib/interfaces.ts';
 import { Button, Flex, Popconfirm, Table } from 'antd';
+import UserDataForm from '../components/Forms/UserDataForm.tsx';
+import { observer } from 'mobx-react-lite';
 
-const AccountPage: FC = () => {
-  const userData: UserData | undefined = store.users.find(user => user.id === authorizedUser.authorizedUserId);
+const AccountPageComponent: FC = () => {
+  const user: UserData | undefined = store.users.find(user => user.id === authorizedUser.authorizedUserId);
   const [orders, setOrders] = useState<Array<IOrder>>(store.orders);
 
   const handleCancelOrder = (orderId: string) => {
@@ -18,7 +20,7 @@ const AccountPage: FC = () => {
       key: index.toString(),
       date: order.date?.toLocaleString(),
       products: order.productsData?.join(', '),
-      address: userData?.address,
+      address: user?.address,
       cost: order.totalPrice,
       cancel: <Popconfirm
         title="Cancel the order"
@@ -67,9 +69,16 @@ const AccountPage: FC = () => {
     },
   ];
 
+  const onFinish = (userData: UserData) => {
+    user?.changeUserData(userData);
+    console.log('updated');
+  }
+
   return (
     <>
-      <Title level={1}>Hi, {userData?.username}</Title>
+      <Title level={1}>Hi, {user?.username}</Title>
+      <Title level={2}>Here you can view and change your credentials</Title>
+      <UserDataForm userData={user} onFinish={onFinish} />
       <Title level={2}>Here you can review your orders or cancel them</Title>
       <Flex>
         <Table dataSource={dataSource} columns={columns} />
@@ -78,5 +87,7 @@ const AccountPage: FC = () => {
 
   )
 };
+
+const AccountPage = observer(AccountPageComponent);
 
 export default AccountPage;

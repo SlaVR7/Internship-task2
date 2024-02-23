@@ -6,14 +6,13 @@ import { App } from './App.tsx';
 import {
   AboutPage,
   AccountPage,
-  CartPage,
+  CartPage, DetailedProductPage,
   HomePage,
-  NotFoundPage,
+  NotFoundPage, OrderPage,
   ProductsPage,
   SignInPage,
   SignUpPage,
 } from './pages';
-import DetailedProductPageComponent from './pages/DetailedProductPage.tsx';
 
 const AppRouter: React.FC = () => {
   const [auth, setAuth] = React.useState(authorizedUser.authorizedUserId);
@@ -36,7 +35,17 @@ const AppRouter: React.FC = () => {
           <Route path={'/our-products'} element={<ProductsPage />} />
           <Route path={'/our-products/:category'} element={<ProductsPage />} />
           <Route path={'/our-products/:category/:subcategory'} element={<ProductsPage />} />
-          <Route path={'/product/:productName'} element={<DetailedProductPageComponent />} />
+          <Route path={'/product/:productName'} element={<DetailedProductPage />} />
+          <Route
+            path="/order"
+            element={
+              auth ? (
+                <OrderPage />
+              ) : (
+                <Navigate to={'/sign-in'} />
+              )
+            }
+          />
           <Route
             path="/sign-in"
             element={

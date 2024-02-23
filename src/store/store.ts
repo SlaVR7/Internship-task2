@@ -30,7 +30,16 @@ const User = types.model('User',{
   gender: types.string,
   password: types.string,
   phone: types.string,
-});
+}).actions(self => ({
+  changeUserData(user: UserData) {
+    self.username = user.username;
+    self.email = user.email;
+    self.address = user.address;
+    self.phone = user.phone;
+    self.password = user.password;
+    self.gender = user.gender;
+  },
+}))
 
 const Order = types.model('Order', {
   orderId: types.identifier,
