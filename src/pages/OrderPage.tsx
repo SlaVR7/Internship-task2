@@ -10,11 +10,12 @@ import { UserData } from '../lib/interfaces.ts';
 import { countPrice } from '../lib/utils/countPrice.ts';
 import { useNavigate } from 'react-router-dom';
 
-
 const OrderPage = () => {
-  const productsInCart= store.products.filter(product => product.quantityInCart);
+  const productsInCart = store.products.filter((product) => product.quantityInCart);
   const totalSailedPrice = countPrice(productsInCart, true);
-  const userData: UserData | undefined = store.users.find(user => user.id === authorizedUser.authorizedUserId);
+  const userData: UserData | undefined = store.users.find(
+    (user) => user.id === authorizedUser.authorizedUserId
+  );
   const [promoCodeInputValue, setPromoCodeInputValue] = useState('');
   const [isPromoCodeActive, setIsPromoCodeActive] = useState(false);
   const [api, contextHolder] = notification.useNotification();
@@ -23,7 +24,8 @@ const OrderPage = () => {
   const openNotificationWithIcon = (type: NotificationType) => {
     api[type]({
       message: type === 'success' ? PromoCode.Success : PromoCode.Fail,
-    })};
+    });
+  };
 
   const handlePromoCode = () => {
     if (isPromoCodeActive) {
@@ -38,13 +40,15 @@ const OrderPage = () => {
         setPromoCodeInputValue('');
       }
     }
-  }
+  };
 
   const placeOrder = () => {
-    const productsOrderData = productsInCart.map(product => `${product.name} (quantity: ${product.quantityInCart})`)
+    const productsOrderData = productsInCart.map(
+      (product) => `${product.name} (quantity: ${product.quantityInCart})`
+    );
     store.addOrder(productsOrderData, new Date(), totalSailedPrice.toString());
     navigate('/account');
-  }
+  };
 
   return (
     <>
@@ -65,7 +69,7 @@ const OrderPage = () => {
         <Button onClick={handlePromoCode}>{isPromoCodeActive ? 'Reset' : 'Apply'}</Button>
       </Flex>
       <Divider />
-      <Title level={2} >Shipping details:</Title>
+      <Title level={2}>Shipping details:</Title>
       <p>Name: {userData?.username}</p>
       <p>Address: {userData?.address}</p>
       <p>Tel: {userData?.phone}</p>

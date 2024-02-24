@@ -7,7 +7,9 @@ import UserDataForm from '../components/Forms/UserDataForm.tsx';
 import { observer } from 'mobx-react-lite';
 
 const AccountPageComponent: FC = () => {
-  const user: UserData | undefined = store.users.find(user => user.id === authorizedUser.authorizedUserId);
+  const user: UserData | undefined = store.users.find(
+    (user) => user.id === authorizedUser.authorizedUserId
+  );
   const [orders, setOrders] = useState<Array<IOrder>>(store.orders);
 
   const handleCancelOrder = (orderId: string) => {
@@ -22,17 +24,19 @@ const AccountPageComponent: FC = () => {
       products: order.productsData?.join(', '),
       address: user?.address,
       cost: order.totalPrice,
-      cancel: <Popconfirm
-        title="Cancel the order"
-        description="Are you sure to cancel this order?"
-        okText="Yes"
-        cancelText="No"
-        onConfirm={() => handleCancelOrder(order.orderId)}
-      >
-        <Button>Cancel order</Button>
-      </Popconfirm>
-    }
-  })
+      cancel: (
+        <Popconfirm
+          title="Cancel the order"
+          description="Are you sure to cancel this order?"
+          okText="Yes"
+          cancelText="No"
+          onConfirm={() => handleCancelOrder(order.orderId)}
+        >
+          <Button>Cancel order</Button>
+        </Popconfirm>
+      ),
+    };
+  });
 
   const columns = [
     {
@@ -72,7 +76,7 @@ const AccountPageComponent: FC = () => {
   const onFinish = (userData: UserData) => {
     user?.changeUserData(userData);
     console.log('updated');
-  }
+  };
 
   return (
     <>
@@ -84,8 +88,7 @@ const AccountPageComponent: FC = () => {
         <Table dataSource={dataSource} columns={columns} />
       </Flex>
     </>
-
-  )
+  );
 };
 
 const AccountPage = observer(AccountPageComponent);

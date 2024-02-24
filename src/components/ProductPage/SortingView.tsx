@@ -23,7 +23,7 @@ export default function SortingView({ setProductsParameters }: IProductsSetter) 
       priceDown: btnName !== 'priceDown' ? false : !sortButtonsState.priceDown,
       sortAbc: btnName !== 'sortAbc' ? false : !sortButtonsState.sortAbc,
       sortZyx: btnName !== 'sortZyx' ? false : !sortButtonsState.sortZyx,
-    })
+    });
   }
 
   return (
@@ -59,7 +59,7 @@ export default function SortingView({ setProductsParameters }: IProductsSetter) 
         }}
       >
         <SortPriceDown />
-    </Button>
+      </Button>
     </Flex>
   );
 }

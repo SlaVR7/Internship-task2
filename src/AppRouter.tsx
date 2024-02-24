@@ -1,14 +1,22 @@
 import * as React from 'react';
 import { authorizedUser } from './store/store.ts';
 import { onSnapshot } from 'mobx-state-tree';
-import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Navigate,
+  Route,
+  RouterProvider,
+} from 'react-router-dom';
 import { App } from './App.tsx';
 import {
   AboutPage,
   AccountPage,
-  CartPage, DetailedProductPage,
+  CartPage,
+  DetailedProductPage,
   HomePage,
-  NotFoundPage, OrderPage,
+  NotFoundPage,
+  OrderPage,
   ProductsPage,
   SignInPage,
   SignUpPage,
@@ -36,46 +44,10 @@ const AppRouter: React.FC = () => {
           <Route path={'/our-products/:category'} element={<ProductsPage />} />
           <Route path={'/our-products/:category/:subcategory'} element={<ProductsPage />} />
           <Route path={'/product/:productName'} element={<DetailedProductPage />} />
-          <Route
-            path="/order"
-            element={
-              auth ? (
-                <OrderPage />
-              ) : (
-                <Navigate to={'/sign-in'} />
-              )
-            }
-          />
-          <Route
-            path="/sign-in"
-            element={
-              auth ? (
-                <Navigate to="/" />
-              ) : (
-                <SignInPage />
-              )
-            }
-          />
-          <Route
-            path="/sign-up"
-            element={
-              auth ? (
-                <Navigate to="/" />
-              ) : (
-                <SignUpPage />
-              )
-            }
-          />
-          <Route
-            path="/account"
-            element={
-              auth ? (
-                <AccountPage />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
+          <Route path="/order" element={auth ? <OrderPage /> : <Navigate to={'/sign-in'} />} />
+          <Route path="/sign-in" element={auth ? <Navigate to="/" /> : <SignInPage />} />
+          <Route path="/sign-up" element={auth ? <Navigate to="/" /> : <SignUpPage />} />
+          <Route path="/account" element={auth ? <AccountPage /> : <Navigate to="/" />} />
         </>
         <Route path={'*'} element={<NotFoundPage />} />
       </Route>

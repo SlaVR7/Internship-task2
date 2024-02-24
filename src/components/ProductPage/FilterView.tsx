@@ -9,42 +9,51 @@ export default function FilterView({ setProductsParameters }: IProductsSetter) {
   const initialFilterParameters: IFilterParameters = {
     priceRange: [0, 50],
     typeOfProducts: 'All products',
-  }
+  };
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFilterActive, setIsFilterActive] = useState(false);
-  const [filterParameters, setFilterParameters] = useState<IFilterParameters>(initialFilterParameters);
+  const [filterParameters, setFilterParameters] =
+    useState<IFilterParameters>(initialFilterParameters);
 
   function handleFilterClick() {
-    setIsMenuOpen(prevState => !prevState);
+    setIsMenuOpen((prevState) => !prevState);
     setIsFilterActive(true);
-    setProductsParameters(prevState => {
-      return {...prevState, ...filterParameters}
-    })
+    setProductsParameters((prevState) => {
+      return { ...prevState, ...filterParameters };
+    });
   }
 
   function handleResetClick() {
-    setIsMenuOpen(prevState => !prevState);
+    setIsMenuOpen((prevState) => !prevState);
     setIsFilterActive(false);
-    setProductsParameters(prevState => {
-      return {...prevState, ...initialFilterParameters}
-    })
-    setFilterParameters(prevState => {
-      return {...prevState, ...initialFilterParameters}
-    })
+    setProductsParameters((prevState) => {
+      return { ...prevState, ...initialFilterParameters };
+    });
+    setFilterParameters((prevState) => {
+      return { ...prevState, ...initialFilterParameters };
+    });
   }
 
   return (
-    <div style={{border: 'none'}} className='relative text-basicColor'>
+    <div style={{ border: 'none' }} className="relative text-basicColor">
       <Flex
         align={'center'}
         gap={'0.5rem'}
-        className='transition text-primaryColor cursor-pointer hover:text-basicColor active:scale-95'
-        onClick={() => setIsMenuOpen(prevState => !prevState)}
+        className="transition text-primaryColor cursor-pointer hover:text-basicColor active:scale-95"
+        onClick={() => setIsMenuOpen((prevState) => !prevState)}
       >
-        <Flex className={isFilterActive ? `cursor-pointer p-2 rounded-normal w-[37px] h-[37px] bg-red-600 hover:bg-grayLColor` : `cursor-pointer p-2 rounded-normal w-[37px] h-[37px] bg-grayLColor/30 hover:bg-grayLColor`}>
+        <Flex
+          className={
+            isFilterActive
+              ? `cursor-pointer p-2 rounded-normal w-[37px] h-[37px] bg-red-600 hover:bg-grayLColor`
+              : `cursor-pointer p-2 rounded-normal w-[37px] h-[37px] bg-grayLColor/30 hover:bg-grayLColor`
+          }
+        >
           <FilterIcon />
         </Flex>
-        <Title level={5} className='hidden md:block'>Filter</Title>
+        <Title level={5} className="hidden md:block">
+          Filter
+        </Title>
       </Flex>
       {isMenuOpen && (
         <Flex>
@@ -58,31 +67,35 @@ export default function FilterView({ setProductsParameters }: IProductsSetter) {
             )}
           >
             <Title level={4}>Filter settings</Title>
-            <Radio.Group defaultValue={filterParameters.typeOfProducts}
+            <Radio.Group
+              defaultValue={filterParameters.typeOfProducts}
               options={[
                 {
                   label: 'Single product',
-                  value: 'Single product'
+                  value: 'Single product',
                 },
                 {
                   label: 'Set of products',
                   value: 'Set of products',
-                }
+                },
               ]}
               onChange={(e) => {
-                setFilterParameters(prevState => {
-                  return {...prevState, typeOfProducts: e.target.value}
-                })
+                setFilterParameters((prevState) => {
+                  return { ...prevState, typeOfProducts: e.target.value };
+                });
               }}
             />
             <Slider
-              style={{width: '100px'}}
-              range max={50}
+              style={{ width: '100px' }}
+              range
+              max={50}
               defaultValue={filterParameters.priceRange}
               onChange={(value) =>
                 setFilterParameters((prevState) => {
-                  return {...prevState, priceRange: value} as IFilterParameters})
-                } />
+                  return { ...prevState, priceRange: value } as IFilterParameters;
+                })
+              }
+            />
             <Flex vertical={true} justify={'space-between'} gap={'1rem'}>
               <Button
                 onClick={() => {

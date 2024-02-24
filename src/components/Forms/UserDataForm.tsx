@@ -1,11 +1,5 @@
-import { FC} from 'react';
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  Select,
-} from 'antd';
+import { FC } from 'react';
+import { Button, Checkbox, Form, Input, Select } from 'antd';
 import { IUserDataForm } from '../../lib/interfaces.ts';
 
 const { Option } = Select;
@@ -33,7 +27,7 @@ const tailFormItemLayout = {
   },
 };
 
-const UserDataForm: FC<IUserDataForm> = ({userData, onFinish}) => {
+const UserDataForm: FC<IUserDataForm> = ({ userData, onFinish }) => {
   const [form] = Form.useForm();
 
   const prefixSelector = (
@@ -76,7 +70,7 @@ const UserDataForm: FC<IUserDataForm> = ({userData, onFinish}) => {
           },
         ]}
       >
-        <Input placeholder={userData ? userData.email : 'Please input your email'}  />
+        <Input placeholder={userData ? userData.email : 'Please input your email'} />
       </Form.Item>
 
       <Form.Item
@@ -90,7 +84,7 @@ const UserDataForm: FC<IUserDataForm> = ({userData, onFinish}) => {
         ]}
         hasFeedback
       >
-        <Input.Password placeholder={userData ? userData.password : 'Please input your password'}  />
+        <Input.Password placeholder={userData ? userData.password : 'Please input your password'} />
       </Form.Item>
 
       <Form.Item
@@ -113,7 +107,7 @@ const UserDataForm: FC<IUserDataForm> = ({userData, onFinish}) => {
           }),
         ]}
       >
-        <Input.Password placeholder='Please confirm your password!' />
+        <Input.Password placeholder="Please confirm your password!" />
       </Form.Item>
 
       <Form.Item
@@ -121,7 +115,7 @@ const UserDataForm: FC<IUserDataForm> = ({userData, onFinish}) => {
         label="Gender"
         rules={[{ required: true, message: 'Please select gender!' }]}
       >
-        <Select placeholder={userData ? userData.gender : 'Please select gender! '} >
+        <Select placeholder={userData ? userData.gender : 'Please select gender! '}>
           <Option value="male">Male</Option>
           <Option value="female">Female</Option>
           <Option value="other">Other</Option>
@@ -133,9 +127,10 @@ const UserDataForm: FC<IUserDataForm> = ({userData, onFinish}) => {
         label="Phone Number"
         rules={[{ required: true, message: 'Please input your phone number!' }]}
       >
-        <Input addonBefore={prefixSelector}
-               style={{ width: '100%' }}
-               placeholder={userData ? userData.phone : 'Please input your phone number! '}
+        <Input
+          addonBefore={prefixSelector}
+          style={{ width: '100%' }}
+          placeholder={userData ? userData.phone : 'Please input your phone number! '}
         />
       </Form.Item>
 
@@ -144,27 +139,30 @@ const UserDataForm: FC<IUserDataForm> = ({userData, onFinish}) => {
         label="Address"
         rules={[{ required: true, message: 'Please input your address' }]}
       >
-        <Input.TextArea showCount
-                        maxLength={100}
-                        placeholder={userData ? userData.address : 'Please input your address! '}
+        <Input.TextArea
+          showCount
+          maxLength={100}
+          placeholder={userData ? userData.address : 'Please input your address! '}
         />
       </Form.Item>
 
-      {!userData && <Form.Item
-        name="agreement"
-        valuePropName="checked"
-        rules={[
-          {
-            validator: (_, value) =>
-              value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
-          },
-        ]}
-        {...tailFormItemLayout}
-      >
-        <Checkbox>
-          I have read the <a href="#">agreement</a>
-        </Checkbox>
-      </Form.Item>}
+      {!userData && (
+        <Form.Item
+          name="agreement"
+          valuePropName="checked"
+          rules={[
+            {
+              validator: (_, value) =>
+                value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
+            },
+          ]}
+          {...tailFormItemLayout}
+        >
+          <Checkbox>
+            I have read the <a href="#">agreement</a>
+          </Checkbox>
+        </Form.Item>
+      )}
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
           {userData ? 'Update' : 'Register'}

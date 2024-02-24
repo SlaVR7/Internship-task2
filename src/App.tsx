@@ -1,12 +1,12 @@
 import { Outlet } from 'react-router-dom';
-import { Footer, Navbar } from './components';
+import { Footer, Header } from './components';
 import { Layout } from 'antd';
 import { observer } from 'mobx-react-lite';
 
 function AppComponent() {
   return (
     <Layout>
-      <Navbar />
+      <Header />
       <Layout.Content>
         <Outlet />
       </Layout.Content>

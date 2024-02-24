@@ -3,11 +3,15 @@ import { store } from '../../store/store.ts';
 
 export function getProducts(parameters: IProductsParameters): string[] {
   const storeProducts = store.products;
-  const filteredProducts = storeProducts.filter(product => {
-    const searchQueryMatch = product.name.toLowerCase().includes(parameters.searchQuery) || parameters.searchQuery === '';
-    const categoryMatch = !parameters?.category || product.categories.includes(parameters.category.toLowerCase());
-    const priceRangeMatch = product.price >= parameters.priceRange[0] && product.price <= parameters.priceRange[1];
-    const typeOfProductsMatch = parameters.typeOfProducts === 'All products' || product.type === parameters.typeOfProducts;
+  const filteredProducts = storeProducts.filter((product) => {
+    const searchQueryMatch =
+      product.name.toLowerCase().includes(parameters.searchQuery) || parameters.searchQuery === '';
+    const categoryMatch =
+      !parameters?.category || product.categories.includes(parameters.category.toLowerCase());
+    const priceRangeMatch =
+      product.price >= parameters.priceRange[0] && product.price <= parameters.priceRange[1];
+    const typeOfProductsMatch =
+      parameters.typeOfProducts === 'All products' || product.type === parameters.typeOfProducts;
 
     return searchQueryMatch && categoryMatch && priceRangeMatch && typeOfProductsMatch;
   });
@@ -28,6 +32,5 @@ export function getProducts(parameters: IProductsParameters): string[] {
     return 0;
   };
 
-  return filteredProducts.sort(sortFunction).map(product => product.id);
+  return filteredProducts.sort(sortFunction).map((product) => product.id);
 }
-

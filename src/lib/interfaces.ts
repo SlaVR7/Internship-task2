@@ -1,4 +1,10 @@
 import React from 'react';
+import { CarouselRef } from 'antd/lib/carousel';
+
+export interface IBurgerMenu {
+  isUserAuthorized: boolean;
+  logout: () => void;
+}
 
 export interface BannerProps {
   label: string;
@@ -41,11 +47,11 @@ export interface IProductsParameters {
   priceRange: [number, number];
   typeOfProducts: 'All products' | 'Set of products' | 'Single products';
   sortingParameters: {
-    priceUp: boolean,
-    priceDown: boolean,
-    sortAbc: boolean,
-    sortZyx: boolean,
-  }
+    priceUp: boolean;
+    priceDown: boolean;
+    sortAbc: boolean;
+    sortZyx: boolean;
+  };
 }
 
 export interface IProductsSetter {
@@ -84,4 +90,8 @@ export interface ICartList {
 export interface IUserDataForm {
   onFinish: (arg0: UserData) => void;
   userData?: UserData;
+}
+
+export interface ICarouselRef {
+  carouselRef: React.RefObject<CarouselRef>;
 }

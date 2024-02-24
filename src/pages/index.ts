@@ -19,5 +19,5 @@ export {
   SignUpPage,
   NotFoundPage,
   OrderPage,
-  DetailedProductPage
+  DetailedProductPage,
 };

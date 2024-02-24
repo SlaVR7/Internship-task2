@@ -10,4 +10,16 @@ import { SortPriceUp } from './SortPriceUp.tsx';
 import { SortPriceDown } from './SortPriceDown.tsx';
 import VkIcon from './VkIcon.tsx';
 
-export {CartIcon, Logout, VkIcon, FilterIcon, SaleIcon, InstagramIcon, FacebookIcon, SortABC, SortZYX, SortPriceUp, SortPriceDown}
+export {
+  CartIcon,
+  Logout,
+  VkIcon,
+  FilterIcon,
+  SaleIcon,
+  InstagramIcon,
+  FacebookIcon,
+  SortABC,
+  SortZYX,
+  SortPriceUp,
+  SortPriceDown,
+};

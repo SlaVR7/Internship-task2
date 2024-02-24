@@ -23,25 +23,33 @@ function ProductsPage() {
       priceDown: false,
       sortAbc: false,
       sortZyx: false,
-    }
+    },
   });
-  const currentGettingParams = useRef(gettingParameters)
+  const currentGettingParams = useRef(gettingParameters);
 
   setTimeout(() => {
     setIsSearching(false);
   }, 1000);
 
-  const observer = useRef(new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-      const visibleProductsId: string[] = getProducts(currentGettingParams.current);
-      const separatedProductsId: string[] = visibleProductsId.slice((page.current - 1) * 9, page.current * 9);
-      setVisibleProductsId(prevState => [...prevState, ...separatedProductsId]);
-      page.current++
-    }
-  }, {threshold: 1, rootMargin: '50px'}));
+  const observer = useRef(
+    new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          const visibleProductsId: string[] = getProducts(currentGettingParams.current);
+          const separatedProductsId: string[] = visibleProductsId.slice(
+            (page.current - 1) * 9,
+            page.current * 9
+          );
+          setVisibleProductsId((prevState) => [...prevState, ...separatedProductsId]);
+          page.current++;
+        }
+      },
+      { threshold: 1, rootMargin: '50px' }
+    )
+  );
 
   useEffect(() => {
-    setIsSearching(true)
+    setIsSearching(true);
     page.current = 1;
     setVisibleProductsId([]);
     currentGettingParams.current = gettingParameters;
@@ -55,34 +63,54 @@ function ProductsPage() {
       if (currentElement) {
         currentObserver.unobserve(currentElement);
       }
-    }
+    };
   }, [gettingParameters]);
-
 
   return (
     <Flex vertical={true}>
       <NamedBanner title={'OUR PRODUCTS'} />
       <NavigationView setProductsParameters={setGettingParameters} />
       {isSearching ? (
-        <Flex justify={'space-around'} align={'center'} style={{minHeight: '54.5vh'}} className={'flex-grow-1 bg-secondaryColor dark:bg-grayMColor'}>
-          <Title level={1} className={'text-center'}><LoadingOutlined /></Title>
+        <Flex
+          justify={'space-around'}
+          align={'center'}
+          style={{ minHeight: '54.5vh' }}
+          className={'flex-grow-1 bg-secondaryColor dark:bg-grayMColor'}
+        >
+          <Title level={1} className={'text-center'}>
+            <LoadingOutlined />
+          </Title>
         </Flex>
-      ) : (
-        visibleProductsId.length > 0 ? (
+      ) : visibleProductsId.length > 0 ? (
+        <Flex className="bg-primaryColor dark:bg-grayMColor h-auto p-sm text-center px-big flex flex-col flex-1 items-center">
           <Flex
-            className='bg-primaryColor dark:bg-grayMColor h-auto p-sm text-center px-big flex flex-col flex-1 items-center'>
-            <Flex wrap={'wrap'} justify={'center'} className='md:justify-between mt-sm max-w-[1245px] pb-sm'>
-              <Flex gap={'50px'} wrap={'wrap'} justify={'space-around'} className='mt-sm max-w-[1245px] pb-sm '>
-                {visibleProductsId?.map((productId): ReactNode =>
-                  <ProductCard productId={productId} key={productId}/>)}
-              </Flex>
+            wrap={'wrap'}
+            justify={'center'}
+            className="md:justify-between mt-sm max-w-[1245px] pb-sm"
+          >
+            <Flex
+              gap={'50px'}
+              wrap={'wrap'}
+              justify={'space-around'}
+              className="mt-sm max-w-[1245px] pb-sm "
+            >
+              {visibleProductsId?.map(
+                (productId): ReactNode => <ProductCard productId={productId} key={productId} />
+              )}
             </Flex>
           </Flex>
-        ) : (
-          <Flex justify={'space-around'} align={'center'} style={{minHeight: '54.5vh'}} className={'flex-grow-1 bg-secondaryColor dark:bg-grayMColor'}>
-            <Title level={3} className={'text-center'}>Nothing was found</Title>
-          </Flex>
-        )
+        </Flex>
+      ) : (
+        <Flex
+          justify={'space-around'}
+          align={'center'}
+          style={{ minHeight: '54.5vh' }}
+          className={'flex-grow-1 bg-secondaryColor dark:bg-grayMColor'}
+        >
+          <Title level={3} className={'text-center'}>
+            Nothing was found
+          </Title>
+        </Flex>
       )}
       <Row ref={element}></Row>
     </Flex>

@@ -11,7 +11,8 @@ const HomePage: FC = () => {
       <SaleSection />
       <PromoCode />
       <RandomCardsSection />
-    </>)
+    </>
+  );
 };
 
 export default HomePage;

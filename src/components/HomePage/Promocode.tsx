@@ -14,10 +14,10 @@ export default function PromoCode() {
           'dark:bg-accentDarkColor dark:text-basicColor dark:hover:text-secondaryColor'
         )}
       >
-        <Row className='mr-sm'>
+        <Row className="mr-sm">
           <SaleIcon />
         </Row>
-        <Row className='text-sm sm:text-base md:text-2xl lg:text-h3 font-bold'>
+        <Row className="text-sm sm:text-base md:text-2xl lg:text-h3 font-bold">
           Get a 5% discount on the promo code &quot;NATURE&quot;
         </Row>
         <ArrowRightOutlined />
