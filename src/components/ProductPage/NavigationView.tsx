@@ -1,4 +1,4 @@
-import { Breadcrumb, Flex, TreeSelect } from 'antd';
+import { Breadcrumb, Flex, Layout, TreeSelect } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
 import Search from 'antd/es/input/Search';
 import SortingView from './SortingView.tsx';
@@ -107,39 +107,37 @@ export function NavigationView({ setProductsParameters }: IProductsSetter) {
   }
 
   return (
-    <Flex
-      justify={'space-between'}
-      className="bg-accentColor dark:bg-accentDarkColor text-primaryColor "
+    <Layout.Content
+      className="bg-accentColor dark:bg-accentDarkColor text-primaryColor"
     >
       <Flex
         wrap={'wrap'}
         justify={'space-between'}
         align={'center'}
         gap={'10px'}
-        className="max-w-[1440px] py-4 px-4 mx-auto lg:px-big"
+        className="max-w-[1440px] py-4 px-4 lg:px-big mx-auto"
       >
-        <Breadcrumb items={breadcrumbItems} />
+        <Breadcrumb className={'bg-white opacity-60 font-medium p-[5px] rounded'} items={breadcrumbItems} />
         <Flex wrap={'wrap'} gap={'10px'}>
           <TreeSelect
             value={subCategory || category || undefined}
             showSearch
             style={{ width: 200 }}
             dropdownStyle={{ width: 200, maxHeight: 400, overflow: 'auto' }}
-            placeholder="Select category"
+            placeholder="Select a category"
             allowClear
             treeDefaultExpandAll
             onChange={changeCategory}
             treeData={treeData}
           />
           <Search
-            style={{ width: '200px' }}
-            placeholder="input search text"
+            className={'w-[200px] h-[31px] rounded-[0.5rem] dark:bg-graySColor bg-accentDarkColor'}
+            placeholder="Search..."
             onSearch={(value: string) =>
               setProductsParameters((prevState: IProductsParameters) => {
                 return { ...prevState, searchQuery: value };
               })
             }
-            enterButton
           />
           <Flex wrap={'wrap'} gap={10}>
             <SortingView setProductsParameters={setProductsParameters} />
@@ -147,6 +145,6 @@ export function NavigationView({ setProductsParameters }: IProductsSetter) {
           </Flex>
         </Flex>
       </Flex>
-    </Flex>
+    </Layout.Content>
   );
 }

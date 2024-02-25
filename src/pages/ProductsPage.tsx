@@ -92,7 +92,7 @@ function ProductsPage() {
               gap={'50px'}
               wrap={'wrap'}
               justify={'space-around'}
-              className="mt-sm max-w-[1245px] pb-sm "
+              className="mt-sm max-w-[1440px] pb-sm "
             >
               {visibleProductsId?.map(
                 (productId): ReactNode => <ProductCard productId={productId} key={productId} />

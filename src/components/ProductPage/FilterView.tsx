@@ -51,9 +51,9 @@ export default function FilterView({ setProductsParameters }: IProductsSetter) {
         >
           <FilterIcon />
         </Flex>
-        <Title level={5} className="hidden md:block">
+        <Flex className="hidden md:block text-[1rem]">
           Filter
-        </Title>
+        </Flex>
       </Flex>
       {isMenuOpen && (
         <Flex>
