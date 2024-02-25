@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Button, Checkbox, Form, Input, Select } from 'antd';
 import { IUserDataForm } from '../../lib/interfaces.ts';
+import classNames from 'classnames';
 
 const { Option } = Select;
 const formItemLayout = {
@@ -32,7 +33,7 @@ const UserDataForm: FC<IUserDataForm> = ({ userData, onFinish }) => {
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
-      <Select style={{ width: 70 }}>
+      <Select disabled style={{ width: 60 }}>
         <Option value="7">+7</Option>
       </Select>
     </Form.Item>
@@ -40,20 +41,20 @@ const UserDataForm: FC<IUserDataForm> = ({ userData, onFinish }) => {
 
   return (
     <Form
+      className={'pt:w-[450px]'}
       {...formItemLayout}
       form={form}
       name="register"
       onFinish={onFinish}
       initialValues={{ prefix: '7' }}
-      style={{ maxWidth: 600 }}
       scrollToFirstError
     >
       <Form.Item
         name="username"
         label="Username"
-        rules={[{ required: true, message: 'Please input your username!', whitespace: true }]}
+        rules={[{ required: true, message: 'Your username', whitespace: true }]}
       >
-        <Input placeholder={userData ? userData.username : 'Please input your name'} />
+        <Input placeholder={userData ? userData.username : 'Your name'} />
       </Form.Item>
 
       <Form.Item
@@ -70,7 +71,7 @@ const UserDataForm: FC<IUserDataForm> = ({ userData, onFinish }) => {
           },
         ]}
       >
-        <Input placeholder={userData ? userData.email : 'Please input your email'} />
+        <Input placeholder={userData ? userData.email : 'Your email'} />
       </Form.Item>
 
       <Form.Item
@@ -84,7 +85,7 @@ const UserDataForm: FC<IUserDataForm> = ({ userData, onFinish }) => {
         ]}
         hasFeedback
       >
-        <Input.Password placeholder={userData ? userData.password : 'Please input your password'} />
+        <Input.Password placeholder={userData ? userData.password : 'Your password'} />
       </Form.Item>
 
       <Form.Item
@@ -107,7 +108,7 @@ const UserDataForm: FC<IUserDataForm> = ({ userData, onFinish }) => {
           }),
         ]}
       >
-        <Input.Password placeholder="Please confirm your password!" />
+        <Input.Password placeholder="Confirm your password" />
       </Form.Item>
 
       <Form.Item
@@ -115,7 +116,7 @@ const UserDataForm: FC<IUserDataForm> = ({ userData, onFinish }) => {
         label="Gender"
         rules={[{ required: true, message: 'Please select gender!' }]}
       >
-        <Select placeholder={userData ? userData.gender : 'Please select gender! '}>
+        <Select placeholder={userData ? userData.gender : 'Your gender '}>
           <Option value="male">Male</Option>
           <Option value="female">Female</Option>
           <Option value="other">Other</Option>
@@ -128,9 +129,12 @@ const UserDataForm: FC<IUserDataForm> = ({ userData, onFinish }) => {
         rules={[{ required: true, message: 'Please input your phone number!' }]}
       >
         <Input
+          type={'text'}
           addonBefore={prefixSelector}
-          style={{ width: '100%' }}
-          placeholder={userData ? userData.phone : 'Please input your phone number! '}
+          placeholder={userData ? userData.phone : 'Your phone number '}
+          onInput={(e) => {
+            e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
+          }}
         />
       </Form.Item>
 
@@ -142,7 +146,7 @@ const UserDataForm: FC<IUserDataForm> = ({ userData, onFinish }) => {
         <Input.TextArea
           showCount
           maxLength={100}
-          placeholder={userData ? userData.address : 'Please input your address! '}
+          placeholder={userData ? userData.address : 'Your address '}
         />
       </Form.Item>
 
@@ -163,8 +167,15 @@ const UserDataForm: FC<IUserDataForm> = ({ userData, onFinish }) => {
           </Checkbox>
         </Form.Item>
       )}
-      <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
+      <Form.Item className={'flex justify-center'}>
+        <Button type="primary"
+                htmlType="submit"
+                className={classNames(
+                  'text-accentColor dark:text-secondaryColor',
+                  'transition border-2 border-accentColor dark:border-secondaryColor',
+                  'font-bold bg-none rounded-normal',
+                  'h-[36px] px-6 active:scale-95 w-min whitespace-nowrap'
+                )}>
           {userData ? 'Update' : 'Register'}
         </Button>
       </Form.Item>

@@ -1,4 +1,4 @@
-import { Breadcrumb, Flex, Layout, TreeSelect } from 'antd';
+import { Breadcrumb, Flex, TreeSelect } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
 import Search from 'antd/es/input/Search';
 import SortingView from './SortingView.tsx';
@@ -107,7 +107,7 @@ export function NavigationView({ setProductsParameters }: IProductsSetter) {
   }
 
   return (
-    <Layout.Content
+    <div
       className="bg-accentColor dark:bg-accentDarkColor text-primaryColor"
     >
       <Flex
@@ -145,6 +145,6 @@ export function NavigationView({ setProductsParameters }: IProductsSetter) {
           </Flex>
         </Flex>
       </Flex>
-    </Layout.Content>
+    </div>
   );
 }

@@ -1,8 +1,7 @@
 import { FC, useState } from 'react';
-import Title from 'antd/es/typography/Title';
 import { authorizedUser, store } from '../store/store.ts';
 import { IOrder, UserData } from '../lib/interfaces.ts';
-import { Button, Flex, Popconfirm, Table } from 'antd';
+import { Button, Flex, Popconfirm, Row, Table } from 'antd';
 import UserDataForm from '../components/Forms/UserDataForm.tsx';
 import { observer } from 'mobx-react-lite';
 
@@ -23,16 +22,16 @@ const AccountPageComponent: FC = () => {
       date: order.date?.toLocaleString(),
       products: order.productsData?.join(', '),
       address: user?.address,
-      cost: order.totalPrice,
+      cost: Number(order.totalPrice).toFixed(2) + ' $',
       cancel: (
         <Popconfirm
           title="Cancel the order"
           description="Are you sure to cancel this order?"
-          okText="Yes"
+          okText={<span style={{ color: 'red'}}>Yes</span>}
           cancelText="No"
           onConfirm={() => handleCancelOrder(order.orderId)}
         >
-          <Button>Cancel order</Button>
+          <Button danger>Cancel order</Button>
         </Popconfirm>
       ),
     };
@@ -79,15 +78,17 @@ const AccountPageComponent: FC = () => {
   };
 
   return (
-    <>
-      <Title level={1}>Hi, {user?.username}</Title>
-      <Title level={2}>Here you can view and change your credentials</Title>
-      <UserDataForm userData={user} onFinish={onFinish} />
-      <Title level={2}>Here you can review your orders or cancel them</Title>
-      <Flex>
-        <Table dataSource={dataSource} columns={columns} />
+    <Flex className={'grow bg-gray-300 dark:bg-grayMColor'}>
+      <Flex vertical className={'max-w-[1440px] mx-auto px-[100px] py-[50px]'}>
+        <Row className={'text-accentColor dark:text-primaryColor text-h3 font-bold pb-[48px]'}>Hi, {user?.username}</Row>
+        <Row className={'text-accentColor dark:text-primaryColor text-h4 font-bold pb-[22px]'}>Here you can view and change your credentials:</Row>
+        <UserDataForm userData={user} onFinish={onFinish} />
+        <Row className={'text-accentColor dark:text-primaryColor text-h4 font-bold mt-[22px] pb-[22px]'}>Here you can review your orders or cancel them:</Row>
+        <Flex>
+          <Table pagination={false} dataSource={dataSource} columns={columns} />
+        </Flex>
       </Flex>
-    </>
+    </Flex>
   );
 };
 

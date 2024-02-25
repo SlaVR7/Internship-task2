@@ -19,14 +19,14 @@ function BurgerMenu({ isUserAuthorized, logout }: IBurgerMenu) {
         <Row className="w-[30px] h-[2px] bg-grayLColor dark:bg-primaryColor"></Row>
       </Button>
       <Drawer
-        className={'block md:hidden dark:bg-graySColor '}
+        className={'block md:hidden dark:bg-gray-300 '}
         title="Menu"
         placement="right"
         closable={true}
         onClose={() => setVisible(false)}
         open={visible}
       >
-        <Menu className={'dark:bg-graySColor'} mode="vertical">
+        <Menu className={'dark:bg-gray-300'} mode="vertical">
           <Menu.Item key="1" onClick={() => setVisible(false)}>
             <Link to={'/'}>Home</Link>
           </Menu.Item>

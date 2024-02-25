@@ -74,10 +74,9 @@ function ProductsPage() {
         <Flex
           justify={'space-around'}
           align={'center'}
-          style={{ minHeight: '54.5vh' }}
-          className={'flex-grow-1 bg-secondaryColor dark:bg-grayMColor'}
+          className={'flex-grow-1 bg-primaryColor dark:bg-grayMColor'}
         >
-          <Title level={1} className={'text-center'}>
+          <Title level={1} className={'text-center mt-[20px]'}>
             <LoadingOutlined />
           </Title>
         </Flex>
@@ -104,8 +103,7 @@ function ProductsPage() {
         <Flex
           justify={'space-around'}
           align={'center'}
-          style={{ minHeight: '54.5vh' }}
-          className={'flex-grow-1 bg-secondaryColor dark:bg-grayMColor'}
+          className={'flex-grow-1 bg-primaryColor dark:bg-grayMColor mt-[20px]'}
         >
           <Title level={3} className={'text-center'}>
             Nothing was found

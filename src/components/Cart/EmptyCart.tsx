@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
+import classNames from 'classnames';
 
 export function EmptyCart() {
   const navigate = useNavigate();
@@ -10,16 +11,22 @@ export function EmptyCart() {
         Your Cart is currently empty!
       </h4>
       <img className="w-[200px] mb-10 dark:invert" src="/images/empty-cart.png" alt="empty-cart" />
-      <p className="text-center">
+      <p className="text-center text-[16px]">
         Before proceed to checkout you should add some products to your shopping cart.
       </p>
-      <p className="text-center mb-4">
+      <p className="text-center mb-4 text-[16px]">
         You will find a lot of interesting products on Our products page
       </p>
       <Button
         onClick={() => {
           navigate('/our-products');
         }}
+        className={classNames(
+          'text-accentColor dark:text-secondaryColor',
+          'transition border-2 border-accentColor dark:border-secondaryColor',
+          'font-bold bg-none rounded-normal',
+          'h-[74px] px-12 active:scale-95 w-min whitespace-nowrap'
+        )}
       >
         Go shopping
       </Button>

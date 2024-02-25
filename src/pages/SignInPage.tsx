@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button, Form, Input, notification } from 'antd';
+import { Button, Flex, Form, Input, notification } from 'antd';
 import { UserData } from '../lib/interfaces.ts';
 import { authorizedUser, store } from '../store/store.ts';
 import { Link, useNavigate } from 'react-router-dom';
 import { FieldType } from '../lib/types.ts';
-import Title from 'antd/es/typography/Title';
+import classNames from 'classnames';
 
 const SignInPage: React.FC = () => {
   const navigate = useNavigate();
@@ -24,26 +24,22 @@ const SignInPage: React.FC = () => {
 
   const onFinish = (values: UserData) => {
     const users = store.users;
-    console.log('users', users);
     const authorizedUser = users.find((user) => {
-      console.log('AAuZZ', user, values);
       return user.username === values.username && user.password === values.password;
     });
-    console.log('auth', authorizedUser);
     authorizedUser ? successfulSignIn(authorizedUser) : openNotificationWithIcon();
   };
 
   return (
-    <>
+    <Flex vertical align={'center'} className={'min-h-[84.8vh] px-[20px] pt-[50px] pb-[auto] md:py-[100px] bg-gray-300 dark:bg-grayMColor overflow-x-hidden'}>
       {contextHolder}
-      <h3 className={'text-accentColor dark:text-primaryColor text-h3 font-bold pb-bigY'}>
+      <h3 className={'mb-[20px] text-accentColor dark:text-primaryColor text-h3 font-bold'}>
         Sign In form:
       </h3>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
         autoComplete="off"
@@ -53,7 +49,7 @@ const SignInPage: React.FC = () => {
           name="username"
           rules={[{ required: true, message: 'Please input your username!' }]}
         >
-          <Input />
+          <Input placeholder={'Your username'}/>
         </Form.Item>
 
         <Form.Item<FieldType>
@@ -61,22 +57,34 @@ const SignInPage: React.FC = () => {
           name="password"
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
-          <Input.Password />
+          <Input.Password placeholder={'Your password'} />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary"
+                  htmlType="submit"
+                  className={classNames(
+                    'text-accentColor dark:text-secondaryColor',
+                    'transition border-2 border-accentColor dark:border-secondaryColor',
+                    'font-bold bg-none rounded-normal',
+                    'h-[36px] px-6 active:scale-95 w-min whitespace-nowrap'
+                  )}>
             Sign in
           </Button>
         </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Title level={2}>Don't have an account yet?</Title>
-          <Link to={'/sign-up'} type="primary">
-            <Button>Create an account</Button>
-          </Link>
-        </Form.Item>
       </Form>
-    </>
+      <Form.Item>
+        <Flex className={'mt-[50px] text-center text-accentColor dark:text-primaryColor text-h3 font-bold pb-[32px]'}>Don't have an account yet?</Flex>
+        <Link className={'flex justify-center'} to={'/sign-up'} type="primary">
+          <Button className={classNames(
+            'text-accentColor dark:text-secondaryColor',
+            'transition border-2 border-accentColor dark:border-secondaryColor',
+            'font-bold bg-none rounded-normal',
+            'h-[36px] px-6 active:scale-95 w-min whitespace-nowrap'
+          )}>Create an account</Button>
+        </Link>
+      </Form.Item>
+    </Flex>
   );
 };
 

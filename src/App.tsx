@@ -5,9 +5,9 @@ import { observer } from 'mobx-react-lite';
 
 function AppComponent() {
   return (
-    <Layout>
+    <Layout className={'min-h-[100vh]'}>
       <Header />
-      <Layout.Content>
+      <Layout.Content className={'flex flex-col flex-grow bg-primaryColor dark:bg-grayMColor'}>
         <Outlet />
       </Layout.Content>
       <Footer />

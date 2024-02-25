@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Divider, Flex } from 'antd';
+import { Divider, Flex, Row } from 'antd';
 import { CartListItem } from './CartListItem.tsx';
 import { ICartList, ProductCardProps } from '../../lib/interfaces.ts';
 import { store } from '../../store/store.ts';
@@ -30,33 +30,39 @@ const CartList: FC<ICartList> = ({ isPromoCodeActive, isOrderPage }) => {
     <>
       {currentCartProducts.length && (
         <>
-          <Flex vertical={true} className="border-b-2 border-accentColor dark:border-basicColor">
-            <h3 className="text-h3 text-accentColor dark:text-basicColor font-bold md:text-start">
-              My list of products
-            </h3>
-            {currentCartProducts.map((product) => (
-              <CartListItem productId={product.id} key={product.id} readOnly={isOrderPage} />
-            ))}
-          </Flex>
-          <Divider />
-          <div className="flex justify-between text-grayMColor dark:accent-accentColor text-h3 font-bold line-through">
-            {totalPrice}
+        <Flex vertical={true} className="border-b-2 border-accentColor dark:border-basicColor w-full">
+          <Row className="text-h3 text-accentColor dark:text-basicColor font-bold md:text-start">
+            My list of products
+          </Row>
+          <Divider className={'bg-accentColor dark:bg-black h-[2px] my-[12px]'} />
+          {currentCartProducts.map((product) => (
+            <CartListItem productId={product.id} key={product.id} readOnly={isOrderPage} />
+          ))}
+        </Flex>
+        <Divider className={'bg-accentColor dark:bg-black h-[2px] my-[12px]'} />
+        {totalPrice !== totalSailedPrice &&
+          <div className="text-grayMColor dark:text-black text-[20px] md:text-h3 font-bold flex justify-between">
+            <div className={'text-[24px]'}>Price without discounts:</div>
+            <p className={'text-[24px] line-through text-nowrap'}>{totalPrice.toFixed(2)} $</p>
           </div>
-          {isPromoCodeActive ? (
-            <div className="flex justify-between text-h3 font-bold">
-              <h3>Total price:</h3>
-              <p>{totalSailedPrice && totalSailedPrice * PromoCode.SaleRatio}</p>
-            </div>
-          ) : (
-            <div className="flex text-h3 font-bold">
-              <h3>Total price:</h3>
-              <p>{totalSailedPrice}</p>
-            </div>
-          )}
-        </>
+        }
+      {isPromoCodeActive ? (
+        <div className="flex justify-between text-[24px] md:text-h3 font-bold">
+          <h3>Total price:</h3>
+          <p>{totalSailedPrice && (totalSailedPrice * PromoCode.SaleRatio).toFixed(2)} $</p>
+          </div>
+        ) : (
+          <div className="flex justify-between text-[24px] md:text-h3 font-bold">
+            <h3>Total price:</h3>
+            <p>{totalSailedPrice.toFixed(2)} $</p>
+          </div>
       )}
     </>
-  );
+  )
+}
+</>
+)
+  ;
 };
 
 export default CartList;
