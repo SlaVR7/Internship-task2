@@ -114,7 +114,7 @@ const OrderPage = () => {
         <Row className={'text-grayMColor dark:text-black text-[22px] font-bold '}>
           Tel:&nbsp;
           <Row className={'text-black dark:text-accentDarkColor text-[22px] font-bold '}>
-            {userData?.phone}
+            +7{userData?.phone}
           </Row>
         </Row>
         <Row className={'text-grayMColor dark:text-black text-[22px] font-bold '}>
