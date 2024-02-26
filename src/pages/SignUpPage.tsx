@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, ConfigProvider, Flex, Form, Modal } from 'antd';
+import { Button, Flex, Form, Modal } from 'antd';
 import { UserData } from '../lib/interfaces.ts';
 import { store } from '../store/store.ts';
 import { Link, useNavigate } from 'react-router-dom';
@@ -35,26 +35,16 @@ const SignUpPage: React.FC = () => {
         'min-h-[84.8vh] px-[20px] pt-[50px] pb-[auto] md:py-[100px] bg-gray-300 dark:bg-grayMColor'
       }
     >
-      <ConfigProvider
-        theme={{
-          components: {
-            Modal: {
-              contentBg: '#626D58',
-            },
-          },
-        }}
+      <Modal
+        open={isModalOpen}
+        onOk={handleOk}
+        okText={<span className={'text-black'}>Sign in</span>}
+        onCancel={handleCancel}
+        cancelText={'to Home page'}
       >
-        <Modal
-          open={isModalOpen}
-          onOk={handleOk}
-          okText={'Sign in'}
-          onCancel={handleCancel}
-          cancelText={'to Home page'}
-        >
-          <Title level={3}>You have successfully registered</Title>
-          <p>You can sign in to your account</p>
-        </Modal>
-      </ConfigProvider>
+        <Title level={3}>You have successfully registered</Title>
+        <p>You can sign in to your account</p>
+      </Modal>
       <Flex className={'text-accentColor dark:text-primaryColor text-h3 font-bold pb-[48px]'}>
         Registration form:
       </Flex>

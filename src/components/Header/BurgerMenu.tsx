@@ -1,4 +1,4 @@
-import { Button, Drawer, Menu, Row } from 'antd';
+import { Button, Drawer, Flex, Row } from 'antd';
 import { Link } from 'react-router-dom';
 import { IBurgerMenu } from '../../lib/interfaces.ts';
 import { useState } from 'react';
@@ -26,39 +26,59 @@ function BurgerMenu({ isUserAuthorized, logout }: IBurgerMenu) {
         onClose={() => setVisible(false)}
         open={visible}
       >
-        <Menu className={'dark:bg-gray-300'} mode="vertical">
-          <Menu.Item key="1" onClick={() => setVisible(false)}>
-            <Link to={'/'}>Home</Link>
-          </Menu.Item>
-          <Menu.Item key="2" onClick={() => setVisible(false)}>
-            <Link to={'/our-products'}>Our products</Link>
-          </Menu.Item>
+        <Flex className={'dark:bg-gray-300'} vertical>
+          <Link
+            className={'text-[16px] leading-[2] hover:text-accentColor'}
+            to={'/'}
+            onClick={() => setVisible(false)}
+          >
+            Home
+          </Link>
+          <Link
+            className={'text-[16px] leading-[2] hover:text-accentColor'}
+            to={'/our-products'}
+            onClick={() => setVisible(false)}
+          >
+            Our products
+          </Link>
           {isUserAuthorized ? (
             <>
-              <Menu.Item key="3" onClick={() => setVisible(false)}>
-                <Link to={'/account'}>Account</Link>
-              </Menu.Item>
-              <Menu.Item
-                key="4"
+              <Link
+                className={'text-[16px] leading-[2] hover:text-accentColor'}
+                to={'/account'}
+                onClick={() => setVisible(false)}
+              >
+                Account
+              </Link>
+              <Row
+                className={'text-[16px] leading-[2] hover:text-accentColor cursor-pointer'}
                 onClick={() => {
                   setVisible(false);
                   logout();
                 }}
               >
                 Logout
-              </Menu.Item>
+              </Row>
             </>
           ) : (
             <>
-              <Menu.Item key="5" onClick={() => setVisible(false)}>
-                <Link to={'/sign-in'}>Sign in</Link>
-              </Menu.Item>
-              <Menu.Item key="6" onClick={() => setVisible(false)}>
-                <Link to={'/sign-up'}>Sign up</Link>
-              </Menu.Item>
+              <Link
+                className={'text-[16px] leading-[2] hover:text-accentColor'}
+                to={'/sign-in'}
+                onClick={() => setVisible(false)}
+              >
+                Sign in
+              </Link>
+              <Link
+                className={'text-[16px] leading-[2] hover:text-accentColor'}
+                to={'/sign-up'}
+                onClick={() => setVisible(false)}
+              >
+                Sign up
+              </Link>
             </>
           )}
-        </Menu>
+        </Flex>
       </Drawer>
     </>
   );

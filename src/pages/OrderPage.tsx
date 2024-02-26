@@ -54,7 +54,10 @@ const OrderPage = () => {
 
   return (
     <Flex className={'grow bg-gray-300 dark:bg-grayMColor'}>
-      <Flex vertical className={'max-w-[1440px] mx-auto px-[100px] py-[50px] w-[100%]'}>
+      <Flex
+        vertical
+        className={'max-w-[1440px] mx-auto px-[25px] md:px-[100px] py-[50px] w-[100%]'}
+      >
         {contextHolder}
         <Row
           className={'text-accentColor dark:text-accentDarkColor text-[36px] font-bold pb-[48px]'}
@@ -62,7 +65,7 @@ const OrderPage = () => {
           Please, check your order details:
         </Row>
         <CartList isPromoCodeActive={isPromoCodeActive} isOrderPage={true} />
-        <Flex justify={'space-between'} className={'mt-[30px]'}>
+        <Flex justify={'space-between'} className={'mt-[30px] flex-col lg:flex-row'}>
           <Row
             className={'text-accentColor dark:text-accentDarkColor text-[24px] font-bold pb-[48px]'}
           >

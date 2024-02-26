@@ -44,7 +44,7 @@ export function CartListItem({ productId, readOnly }: CartItem) {
         </NavLink>
       </Flex>
       <Flex align={'center'} vertical={readOnly} wrap={'wrap'}>
-        <Flex>
+        <Flex vertical>
           {cartProduct?.salePrice ? (
             <>
               <Row className="text-[16px] line-through text-red-500 dark:accent-accentColor mr-4">

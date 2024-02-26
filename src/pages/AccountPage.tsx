@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { authorizedUser, store } from '../store/store.ts';
 import { IOrder, UserData } from '../lib/interfaces.ts';
-import { Button, Flex, Popconfirm, Row, Table } from 'antd';
+import { Button, Flex, notification, Popconfirm, Row, Table } from 'antd';
 import UserDataForm from '../components/Forms/UserDataForm.tsx';
 import { observer } from 'mobx-react-lite';
 
@@ -10,6 +10,14 @@ const AccountPageComponent: FC = () => {
     (user) => user.id === authorizedUser.authorizedUserId
   );
   const [orders, setOrders] = useState<Array<IOrder>>(store.orders);
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotificationWithIcon = () => {
+    api.success({
+      message: 'Successful',
+      description: 'User data changed',
+    });
+  };
 
   const handleCancelOrder = (orderId: string) => {
     store.removeOrder(orderId);
@@ -74,11 +82,13 @@ const AccountPageComponent: FC = () => {
 
   const onFinish = (userData: UserData) => {
     user?.changeUserData(userData);
+    openNotificationWithIcon();
   };
 
   return (
     <Flex className={'grow bg-gray-300 dark:bg-grayMColor'}>
-      <Flex vertical className={'max-w-[1440px] mx-auto px-[100px] py-[50px]'}>
+      {contextHolder}
+      <Flex vertical className={'max-w-[1440px] mx-auto px-[25px] md:px-[100px] py-[50px]'}>
         <Row className={'text-accentColor dark:text-primaryColor text-h3 font-bold pb-[48px]'}>
           Hi, {user?.username}
         </Row>
@@ -93,8 +103,13 @@ const AccountPageComponent: FC = () => {
         >
           Here you can review your orders or cancel them:
         </Row>
-        <Flex>
-          <Table pagination={false} dataSource={dataSource} columns={columns} />
+        <Flex className={'max-w-[80vw] overflow-x-auto'}>
+          <Table
+            scroll={{ x: 'max-content' }}
+            pagination={false}
+            dataSource={dataSource}
+            columns={columns}
+          />
         </Flex>
       </Flex>
     </Flex>
