@@ -6,6 +6,7 @@ import UserDataForm from '../components/Forms/UserDataForm.tsx';
 import { observer } from 'mobx-react-lite';
 
 const AccountPageComponent: FC = () => {
+
   const user: UserData | undefined = store.users.find(
     (user) => user.id === authorizedUser.authorizedUserId
   );

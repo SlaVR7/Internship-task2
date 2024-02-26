@@ -45,7 +45,10 @@ const UserDataForm: FC<IUserDataForm> = ({ userData, onFinish }) => {
       {...formItemLayout}
       form={form}
       name="register"
-      onFinish={onFinish}
+      onFinish={(data) => {
+        onFinish(data);
+        form.resetFields();
+      }}
       initialValues={{ prefix: '7' }}
       scrollToFirstError
     >
