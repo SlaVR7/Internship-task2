@@ -107,17 +107,18 @@ export function NavigationView({ setProductsParameters }: IProductsSetter) {
   }
 
   return (
-    <div
-      className="bg-accentColor dark:bg-accentDarkColor text-primaryColor"
-    >
+    <Flex className="bg-accentColor dark:bg-accentDarkColor text-primaryColor">
       <Flex
         wrap={'wrap'}
         justify={'space-between'}
         align={'center'}
         gap={'10px'}
-        className="max-w-[1440px] py-4 px-4 lg:px-big mx-auto"
+        className="w-full max-w-[1440px] py-4 px-4 lg:px-big mx-auto"
       >
-        <Breadcrumb className={'bg-white opacity-60 font-medium p-[5px] rounded'} items={breadcrumbItems} />
+        <Breadcrumb
+          className={'bg-white opacity-60 font-medium p-[5px] rounded'}
+          items={breadcrumbItems}
+        />
         <Flex wrap={'wrap'} gap={'10px'}>
           <TreeSelect
             value={subCategory || category || undefined}
@@ -145,6 +146,6 @@ export function NavigationView({ setProductsParameters }: IProductsSetter) {
           </Flex>
         </Flex>
       </Flex>
-    </div>
+    </Flex>
   );
 }

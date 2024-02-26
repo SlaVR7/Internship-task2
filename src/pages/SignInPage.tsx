@@ -31,7 +31,13 @@ const SignInPage: React.FC = () => {
   };
 
   return (
-    <Flex vertical align={'center'} className={'min-h-[84.8vh] px-[20px] pt-[50px] pb-[auto] md:py-[100px] bg-gray-300 dark:bg-grayMColor overflow-x-hidden'}>
+    <Flex
+      vertical
+      align={'center'}
+      className={
+        'min-h-[84.8vh] px-[20px] pt-[50px] pb-[auto] md:py-[100px] bg-gray-300 dark:bg-grayMColor overflow-x-hidden'
+      }
+    >
       {contextHolder}
       <h3 className={'mb-[20px] text-accentColor dark:text-primaryColor text-h3 font-bold'}>
         Sign In form:
@@ -49,7 +55,7 @@ const SignInPage: React.FC = () => {
           name="username"
           rules={[{ required: true, message: 'Please input your username!' }]}
         >
-          <Input placeholder={'Your username'}/>
+          <Input placeholder={'Your username'} />
         </Form.Item>
 
         <Form.Item<FieldType>
@@ -61,27 +67,39 @@ const SignInPage: React.FC = () => {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary"
-                  htmlType="submit"
-                  className={classNames(
-                    'text-accentColor dark:text-secondaryColor',
-                    'transition border-2 border-accentColor dark:border-secondaryColor',
-                    'font-bold bg-none rounded-normal',
-                    'h-[36px] px-6 active:scale-95 w-min whitespace-nowrap'
-                  )}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className={classNames(
+              'text-accentColor dark:text-secondaryColor',
+              'transition border-2 border-accentColor dark:border-secondaryColor',
+              'font-bold bg-none rounded-normal',
+              'h-[36px] px-6 active:scale-95 w-min whitespace-nowrap'
+            )}
+          >
             Sign in
           </Button>
         </Form.Item>
       </Form>
       <Form.Item>
-        <Flex className={'mt-[50px] text-center text-accentColor dark:text-primaryColor text-h3 font-bold pb-[32px]'}>Don't have an account yet?</Flex>
+        <Flex
+          className={
+            'mt-[50px] text-center text-accentColor dark:text-primaryColor text-h3 font-bold pb-[32px]'
+          }
+        >
+          Don't have an account yet?
+        </Flex>
         <Link className={'flex justify-center'} to={'/sign-up'} type="primary">
-          <Button className={classNames(
-            'text-accentColor dark:text-secondaryColor',
-            'transition border-2 border-accentColor dark:border-secondaryColor',
-            'font-bold bg-none rounded-normal',
-            'h-[36px] px-6 active:scale-95 w-min whitespace-nowrap'
-          )}>Create an account</Button>
+          <Button
+            className={classNames(
+              'text-accentColor dark:text-secondaryColor',
+              'transition border-2 border-accentColor dark:border-secondaryColor',
+              'font-bold bg-none rounded-normal',
+              'h-[36px] px-6 active:scale-95 w-min whitespace-nowrap'
+            )}
+          >
+            Create an account
+          </Button>
         </Link>
       </Form.Item>
     </Flex>

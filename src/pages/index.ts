@@ -1,4 +1,3 @@
-import AboutPage from './AboutPage.tsx';
 import AccountPage from './AccountPage.tsx';
 import CartPage from './CartPage.tsx';
 import HomePage from './HomePage.tsx';
@@ -10,7 +9,6 @@ import OrderPage from './OrderPage.tsx';
 import DetailedProductPage from './DetailedProductPage.tsx';
 
 export {
-  AboutPage,
   AccountPage,
   SignInPage,
   CartPage,

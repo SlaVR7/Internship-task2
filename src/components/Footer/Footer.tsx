@@ -1,8 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { Flex, Layout, Row } from 'antd';
-import { Logo } from '../index.ts';
-import Navigation from '../Header/Navigation.tsx';
-import SocialMediaLinks from './SocialMediaLinks.tsx';
+import { Logo, Navigation, SocialMediaLinks } from '../index.ts';
 
 function Footer() {
   return (

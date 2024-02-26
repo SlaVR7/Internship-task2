@@ -10,7 +10,6 @@ import {
 } from 'react-router-dom';
 import { App } from './App.tsx';
 import {
-  AboutPage,
   AccountPage,
   CartPage,
   DetailedProductPage,
@@ -39,7 +38,6 @@ const AppRouter: React.FC = () => {
         <>
           <Route index element={<HomePage />} />
           <Route path={'/cart'} element={<CartPage />} />
-          <Route path={'/about'} element={<AboutPage />} />
           <Route path={'/our-products'} element={<ProductsPage />} />
           <Route path={'/our-products/:category'} element={<ProductsPage />} />
           <Route path={'/our-products/:category/:subcategory'} element={<ProductsPage />} />

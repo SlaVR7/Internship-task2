@@ -1,11 +1,13 @@
 import { Flex } from 'antd';
-import VkIcon from '../icons/VkIcon.tsx';
-import InstagramIcon from '../icons/InstagramIcon.tsx';
-import FacebookIcon from '../icons/FacebookIcon.tsx';
 import { Link } from 'react-router-dom';
-import FacebookIconDark from '../icons/FacebookIconDark.tsx';
-import InstagramIconDark from '../icons/InstagramIconDark.tsx';
-import VkIconDark from '../icons/VkIconDark.tsx';
+import {
+  FacebookIcon,
+  FacebookIconDark,
+  InstagramIcon,
+  InstagramIconDark,
+  VkIcon,
+  VkIconDark,
+} from '../icons';
 
 function SocialMediaLinks() {
   return (

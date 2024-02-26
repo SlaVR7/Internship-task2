@@ -15,7 +15,7 @@ export default function SortingView({ setProductsParameters }: IProductsSetter) 
     setProductsParameters((prevState) => {
       return { ...prevState, sortingParameters: sortButtonsState };
     });
-  }, [sortButtonsState]);
+  }, [setProductsParameters, sortButtonsState]);
 
   function setBtnState(btnName: string) {
     setSortButtonsState({

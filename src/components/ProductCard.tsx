@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
-import { Button, Flex, Image } from 'antd';
+import { Button, Flex, Image, Row } from 'antd';
 import { store } from '../store/store.ts';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -32,7 +32,7 @@ function ProductCardComponent({ productId }: { productId: string }) {
         src={storeProduct?.imageSrc[0]}
         alt="product image"
       />
-      <div className="z-20 w-full absolute bottom-[8rem]">
+      <Row className="z-20 w-full absolute bottom-[8rem]">
         <Button
           className={classNames(
             'rounded-none border-none transition',
@@ -43,7 +43,7 @@ function ProductCardComponent({ productId }: { productId: string }) {
         >
           {storeProduct?.quantityInCart ? 'Already in Cart' : 'Add to Cart'}
         </Button>
-      </div>
+      </Row>
       <Flex
         vertical={true}
         justify={'space-between'}

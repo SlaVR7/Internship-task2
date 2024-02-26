@@ -1,8 +1,7 @@
 import NamedBanner from '../components/NamedBanner.tsx';
-import { NavigationView } from '../components/ProductPage/NavigationView.tsx';
+import { NavigationView, ProductCard } from '../components';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { IProductsParameters } from '../lib/interfaces.ts';
-import ProductCard from '../components/ProductCard.tsx';
 import { Flex, Row } from 'antd';
 import { getProducts } from '../lib/utils/getProducts.ts';
 import Title from 'antd/es/typography/Title';

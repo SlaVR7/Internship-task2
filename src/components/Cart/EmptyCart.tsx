@@ -1,22 +1,22 @@
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'antd';
+import { Button, Flex, Row } from 'antd';
 import classNames from 'classnames';
 
 export function EmptyCart() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col justufy-center items-center">
-      <h4 className="text-accentColor dark:text-basicColor font-bold text-h4 text-center my-10">
+    <Flex vertical justify={'center'} align={'center'}>
+      <Row className="text-accentColor dark:text-basicColor font-bold text-h4 text-center my-10">
         Your Cart is currently empty!
-      </h4>
+      </Row>
       <img className="w-[200px] mb-10 dark:invert" src="/images/empty-cart.png" alt="empty-cart" />
-      <p className="text-center text-[16px]">
+      <Row className="text-center text-[16px]">
         Before proceed to checkout you should add some products to your shopping cart.
-      </p>
-      <p className="text-center mb-4 text-[16px]">
+      </Row>
+      <Row className="text-center mb-4 text-[16px]">
         You will find a lot of interesting products on Our products page
-      </p>
+      </Row>
       <Button
         onClick={() => {
           navigate('/our-products');
@@ -30,6 +30,6 @@ export function EmptyCart() {
       >
         Go shopping
       </Button>
-    </div>
+    </Flex>
   );
 }

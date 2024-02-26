@@ -35,7 +35,7 @@ export default function FilterView({ setProductsParameters }: IProductsSetter) {
   }
 
   return (
-    <div style={{ border: 'none' }} className="relative text-basicColor">
+    <Flex style={{ border: 'none' }} className="relative text-basicColor">
       <Flex
         align={'center'}
         gap={'0.5rem'}
@@ -51,9 +51,7 @@ export default function FilterView({ setProductsParameters }: IProductsSetter) {
         >
           <FilterIcon />
         </Flex>
-        <Flex className="hidden md:block text-[1rem]">
-          Filter
-        </Flex>
+        <Flex className="hidden md:block text-[1rem]">Filter</Flex>
       </Flex>
       {isMenuOpen && (
         <Flex>
@@ -115,6 +113,6 @@ export default function FilterView({ setProductsParameters }: IProductsSetter) {
           </Flex>
         </Flex>
       )}
-    </div>
+    </Flex>
   );
 }

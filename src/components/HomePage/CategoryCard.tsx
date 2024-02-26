@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { CategoryCardProps } from '../../lib/interfaces.ts';
+import { Flex } from 'antd';
 
 export default function CategoryCard(item: CategoryCardProps) {
   return (
@@ -19,7 +20,9 @@ export default function CategoryCard(item: CategoryCardProps) {
         src={item.path}
         alt=""
       />
-      <p className="text-h4 text-center font-semibold">{item.name}</p>
+      <Flex justify={'center'} className="text-h4 font-semibold">
+        {item.name}
+      </Flex>
     </Link>
   );
 }

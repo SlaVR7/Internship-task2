@@ -168,14 +168,16 @@ const UserDataForm: FC<IUserDataForm> = ({ userData, onFinish }) => {
         </Form.Item>
       )}
       <Form.Item className={'flex justify-center'}>
-        <Button type="primary"
-                htmlType="submit"
-                className={classNames(
-                  'text-accentColor dark:text-secondaryColor',
-                  'transition border-2 border-accentColor dark:border-secondaryColor',
-                  'font-bold bg-none rounded-normal',
-                  'h-[36px] px-6 active:scale-95 w-min whitespace-nowrap'
-                )}>
+        <Button
+          type="primary"
+          htmlType="submit"
+          className={classNames(
+            'text-accentColor dark:text-secondaryColor',
+            'transition border-2 border-accentColor dark:border-secondaryColor',
+            'font-bold bg-none rounded-normal',
+            'h-[36px] px-6 active:scale-95 w-min whitespace-nowrap'
+          )}
+        >
           {userData ? 'Update' : 'Register'}
         </Button>
       </Form.Item>

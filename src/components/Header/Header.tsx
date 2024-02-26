@@ -1,17 +1,14 @@
 import { FC, useState } from 'react';
 import { Flex, Layout, Row, Space } from 'antd';
-import { Logo } from '../index.ts';
-import { CartIcon, Logout } from '../icons';
+import { CartDark, CartIcon, DarkModeButton, Logout, LogoutIconDark } from '../icons';
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { authorizedUser, store } from '../../store/store.ts';
 import { onSnapshot } from 'mobx-state-tree';
 import Navigation from './Navigation.tsx';
-import { DarkModeButton } from './DarkModeButton.tsx';
-import CartDark from '../icons/CartDark.tsx';
 import BurgerMenu from './BurgerMenu.tsx';
 import { observer } from 'mobx-react-lite';
-import LogOutDark from '../icons/LogOutDark.tsx';
+import Logo from '../Logo.tsx';
 
 const Header: FC = observer(() => {
   const [isUserAuthorized, setIsUserAuthorized] = useState(false);
@@ -70,7 +67,7 @@ const Header: FC = observer(() => {
               </Link>
               <Link to="/" onClick={logout}>
                 <Logout />
-                <LogOutDark />
+                <LogoutIconDark />
               </Link>
             </div>
           ) : (

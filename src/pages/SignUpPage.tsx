@@ -28,7 +28,13 @@ const SignUpPage: React.FC = () => {
   };
 
   return (
-    <Flex vertical align={'center'} className={'min-h-[84.8vh] px-[20px] pt-[50px] pb-[auto] md:py-[100px] bg-gray-300 dark:bg-grayMColor'}>
+    <Flex
+      vertical
+      align={'center'}
+      className={
+        'min-h-[84.8vh] px-[20px] pt-[50px] pb-[auto] md:py-[100px] bg-gray-300 dark:bg-grayMColor'
+      }
+    >
       <ConfigProvider
         theme={{
           components: {
@@ -54,16 +60,24 @@ const SignUpPage: React.FC = () => {
       </Flex>
       <UserDataForm onFinish={onFinish} />
       <Form.Item className={'mt-[51px] pt:w-[450px]'}>
-        <Flex className={'text-center text-accentColor dark:text-primaryColor text-h3 font-bold pb-[48px]'}>
+        <Flex
+          className={
+            'text-center text-accentColor dark:text-primaryColor text-h3 font-bold pb-[48px]'
+          }
+        >
           Do you already have an account?
         </Flex>
         <Link to={'/sign-in'} className={'flex justify-center'} type="primary">
-          <Button className={classNames(
-            'text-accentColor dark:text-secondaryColor',
-            'transition border-2 border-accentColor dark:border-secondaryColor',
-            'font-bold bg-none rounded-normal',
-            'h-[36px] px-6 active:scale-95 w-min whitespace-nowrap'
-          )}>Sign in</Button>
+          <Button
+            className={classNames(
+              'text-accentColor dark:text-secondaryColor',
+              'transition border-2 border-accentColor dark:border-secondaryColor',
+              'font-bold bg-none rounded-normal',
+              'h-[36px] px-6 active:scale-95 w-min whitespace-nowrap'
+            )}
+          >
+            Sign in
+          </Button>
         </Link>
       </Form.Item>
     </Flex>

@@ -9,9 +9,7 @@ function NamedBanner({ title }: PageNameProp): JSX.Element {
       align={'center'}
       className='h-[316px] bg-[url("/images/bg-title-banner.webp")] bg-no-repeat bg-cover'
     >
-      <Flex className="px-4 text-h2 text-primaryColor font-bold opacity-75">
-        {title}
-      </Flex>
+      <Flex className="px-4 text-h2 text-primaryColor font-bold opacity-75">{title}</Flex>
     </Flex>
   );
 }

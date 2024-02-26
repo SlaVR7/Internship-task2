@@ -27,7 +27,7 @@ const AccountPageComponent: FC = () => {
         <Popconfirm
           title="Cancel the order"
           description="Are you sure to cancel this order?"
-          okText={<span style={{ color: 'red'}}>Yes</span>}
+          okText={<span style={{ color: 'red' }}>Yes</span>}
           cancelText="No"
           onConfirm={() => handleCancelOrder(order.orderId)}
         >
@@ -74,16 +74,25 @@ const AccountPageComponent: FC = () => {
 
   const onFinish = (userData: UserData) => {
     user?.changeUserData(userData);
-    console.log('updated');
   };
 
   return (
     <Flex className={'grow bg-gray-300 dark:bg-grayMColor'}>
       <Flex vertical className={'max-w-[1440px] mx-auto px-[100px] py-[50px]'}>
-        <Row className={'text-accentColor dark:text-primaryColor text-h3 font-bold pb-[48px]'}>Hi, {user?.username}</Row>
-        <Row className={'text-accentColor dark:text-primaryColor text-h4 font-bold pb-[22px]'}>Here you can view and change your credentials:</Row>
+        <Row className={'text-accentColor dark:text-primaryColor text-h3 font-bold pb-[48px]'}>
+          Hi, {user?.username}
+        </Row>
+        <Row className={'text-accentColor dark:text-primaryColor text-h4 font-bold pb-[22px]'}>
+          Here you can view and change your credentials:
+        </Row>
         <UserDataForm userData={user} onFinish={onFinish} />
-        <Row className={'text-accentColor dark:text-primaryColor text-h4 font-bold mt-[22px] pb-[22px]'}>Here you can review your orders or cancel them:</Row>
+        <Row
+          className={
+            'text-accentColor dark:text-primaryColor text-h4 font-bold mt-[22px] pb-[22px]'
+          }
+        >
+          Here you can review your orders or cancel them:
+        </Row>
         <Flex>
           <Table pagination={false} dataSource={dataSource} columns={columns} />
         </Flex>

@@ -9,8 +9,15 @@ import { SortZYX } from './SortZYX.tsx';
 import { SortPriceUp } from './SortPriceUp.tsx';
 import { SortPriceDown } from './SortPriceDown.tsx';
 import VkIcon from './VkIcon.tsx';
+import CartDark from './CartDark.tsx';
+import FacebookIconDark from './FacebookIconDark.tsx';
+import InstagramIconDark from './InstagramIconDark.tsx';
+import LogoutIconDark from './LogOutDark.tsx';
+import VkIconDark from './VkIconDark.tsx';
+import { DarkModeButton } from './DarkModeButton.tsx';
 
 export {
+  DarkModeButton,
   CartIcon,
   Logout,
   VkIcon,
@@ -22,4 +29,9 @@ export {
   SortZYX,
   SortPriceUp,
   SortPriceDown,
+  CartDark,
+  VkIconDark,
+  FacebookIconDark,
+  InstagramIconDark,
+  LogoutIconDark,
 };
